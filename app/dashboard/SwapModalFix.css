@@ -1,0 +1,5 @@
+/* Force white text on all swap modal elements regardless of theme */
+.swap-modal-container * {
+  color: white !important;
+  -webkit-text-fill-color: white !important;
+}

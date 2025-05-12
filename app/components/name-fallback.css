@@ -1,0 +1,15 @@
+/* 
+ * Styles for handling Name component fallbacks
+ * This ensures that if the Name component doesn't resolve a name,
+ * we show the formatted address instead
+ */
+
+/* Hide the fallback by default */
+.name-fallback {
+  display: none;
+}
+
+/* When the Name component is empty, show the fallback */
+span:empty + .name-fallback {
+  display: inline;
+}
