@@ -205,4 +205,4 @@ MIT
 ---
 
 ## Contact
-For support or questions, contact the NEDA Pay team at [https://nedapay.app](https://nedapay.app)
+For support or questions, contact the NEDA Pay team at [https://nedapay.app](https://neda-pay.vercel.app/)
