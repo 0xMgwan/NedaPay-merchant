@@ -188,6 +188,9 @@ export default function SettingsPage() {
                         />
                       </div>
                       
+                      {/* Separator line */}
+                      <div className="border-t border-gray-200 dark:border-gray-700 my-2"></div>
+                      
                       <div>
                         <label className="block text-gray-700 dark:text-gray-300 mb-2">Business Email</label>
                         <input
@@ -198,6 +201,9 @@ export default function SettingsPage() {
                         />
                       </div>
                       
+                      {/* Separator line */}
+                      <div className="border-t border-gray-200 dark:border-gray-700 my-2"></div>
+                      
                       <div>
                         <label className="block text-gray-700 dark:text-gray-300 mb-2">Business Phone</label>
                         <input
@@ -207,6 +213,9 @@ export default function SettingsPage() {
                           onChange={(e) => setBusinessPhone(e.target.value)}
                         />
                       </div>
+                      
+                      {/* Separator line */}
+                      <div className="border-t border-gray-200 dark:border-gray-700 my-2"></div>
                       
                       <div>
                         <label className="block text-gray-700 dark:text-gray-300 mb-2">Business Category</label>
@@ -224,6 +233,9 @@ export default function SettingsPage() {
                         </select>
                       </div>
                       
+                      {/* Separator line */}
+                      <div className="border-t border-gray-200 dark:border-gray-700 my-2"></div>
+                      
                       <div>
                         <label className="block text-gray-700 dark:text-gray-300 mb-2">Business Description</label>
                         <textarea
@@ -233,6 +245,9 @@ export default function SettingsPage() {
                           onChange={(e) => setBusinessDescription(e.target.value)}
                         />
                       </div>
+                      
+                      {/* Separator line */}
+                      <div className="border-t border-gray-200 dark:border-gray-700 my-2"></div>
                       
                       <div className="pt-4">
                         <button
@@ -274,6 +289,9 @@ export default function SettingsPage() {
                         </p>
                       </div>
                       
+                      {/* Separator line */}
+                      <div className="border-t border-gray-200 dark:border-gray-700 my-2"></div>
+                      
                       {autoSettlement && (
                         <div>
                           <label className="block text-gray-700 dark:text-gray-300 mb-2">Settlement Threshold</label>
@@ -299,6 +317,9 @@ export default function SettingsPage() {
                         </div>
                       )}
                       
+                      {/* Separator line */}
+                      <div className="border-t border-gray-200 dark:border-gray-700 my-2"></div>
+                      
                       <div>
                         <label className="block text-gray-700 dark:text-gray-300 mb-2">Payment Link Expiry</label>
                         <div className="flex">
@@ -316,6 +337,9 @@ export default function SettingsPage() {
                           Payment links will expire after this duration
                         </p>
                       </div>
+                      
+                      {/* Separator line */}
+                      <div className="border-t border-gray-200 dark:border-gray-700 my-2"></div>
                       
                       <div className="pt-4">
                         <button
