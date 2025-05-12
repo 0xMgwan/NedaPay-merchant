@@ -11,7 +11,6 @@ A robust, multi-chain merchant dashboard for the NEDA Pay ecosystem that enables
 - [Getting Started](#getting-started)
 - [Wallet Connection & Persistence](#wallet-connection--persistence)
 - [Stablecoin Management](#stablecoin-management)
-- [Smart Wallets](#smart-wallets)
 - [Error Handling](#error-handling)
 - [Deployment](#deployment)
 - [Security](#security)
