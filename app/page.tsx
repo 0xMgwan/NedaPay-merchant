@@ -1,5 +1,5 @@
 'use client';
-export const dynamic = "force-dynamic";
+// Removed force-dynamic to prevent unnecessary reloading
 
 import React, { useState, useEffect, useRef, Suspense } from 'react';
 import Footer from './components/Footer';
@@ -48,9 +48,14 @@ function HomeContent() {
             // Listen for chain changes
             window.ethereum.on('chainChanged', (chainId: string) => {
               console.log('Chain changed to:', chainId);
-              // Instead of reloading, we'll just update the state
-              // This prevents unnecessary page reloads
+              // Prevent the default page reload behavior
+              // Instead, just update our state if needed
+              const chainIdNum = parseInt(chainId, 16);
               // You can add chain-specific logic here if needed
+              // For example, check if we're on Base Mainnet (chainId 8453)
+              const isOnBase = chainIdNum === 8453;
+              // Update UI without reloading
+              document.dispatchEvent(new CustomEvent('chainChanged', { detail: { chainId: chainIdNum, isOnBase } }));
             });
           } catch (error) {
             console.error('Error checking wallet connection:', error);
