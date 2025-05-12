@@ -70,8 +70,20 @@ export default function Header() {
           <div className="flex items-center">
             <Link href="/" className="group flex items-center">
               <div className="flex items-center gap-2 overflow-hidden">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-xl shadow-lg group-hover:shadow-blue-300/40 dark:group-hover:shadow-blue-500/20 transition-all duration-300 transform group-hover:scale-105">
-                  <span className="transform -translate-y-0.5">N</span>
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-xl shadow-lg group-hover:shadow-blue-300/40 dark:group-hover:shadow-blue-500/20 transition-all duration-300 transform group-hover:scale-105 relative">
+                  {/* Outer glow effect */}
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 blur-[2px] opacity-70 scale-110 animate-pulse"></div>
+                  
+                  {/* Shiny border */}
+                  <div className="absolute inset-0 rounded-full border-2 border-white/50 dark:border-white/30"></div>
+                  
+                  {/* Shine effect */}
+                  <div className="absolute inset-0 rounded-full overflow-hidden">
+                    <div className="absolute -inset-[100%] top-0 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-[-20deg] animate-shine"></div>
+                  </div>
+                  
+                  {/* Logo letter */}
+                  <span className="relative z-10 transform -translate-y-0.5 text-2xl font-extrabold text-white drop-shadow-md">N</span>
                 </div>
                 <div className="flex flex-col">
                   <span className="text-base sm:text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 group-hover:from-blue-500 group-hover:to-purple-600 dark:group-hover:from-blue-300 dark:group-hover:to-purple-400 transition-all duration-300">

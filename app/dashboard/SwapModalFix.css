@@ -1,5 +1,53 @@
-/* Force white text on all swap modal elements regardless of theme */
+/* Enhanced styling for the swap modal */
 .swap-modal-container * {
   color: white !important;
   -webkit-text-fill-color: white !important;
+}
+
+.swap-modal-container {
+  z-index: 9999 !important;
+}
+
+/* Modal background */
+.swap-modal-container [class*="bg-\[#181A20\]"] {
+  background-color: #181A20 !important;
+  border: 1px solid rgba(59, 130, 246, 0.3) !important;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.2) !important;
+}
+
+/* Input field backgrounds */
+.swap-modal-container [class*="bg-\[#23263B\]"] {
+  background-color: #23263B !important;
+  border: 1px solid rgba(59, 130, 246, 0.1) !important;
+}
+
+.swap-modal-container input {
+  color: white !important;
+  -webkit-text-fill-color: white !important;
+  font-weight: 800 !important;
+  font-size: 2.5rem !important;
+}
+
+.swap-modal-container input:focus {
+  outline: none !important;
+}
+
+.swap-modal-container button.bg-blue-700 {
+  background-color: #3b82f6 !important;
+  transition: all 0.2s ease-in-out !important;
+}
+
+.swap-modal-container button.bg-blue-700:hover {
+  background-color: #2563eb !important;
+  transform: scale(1.05) !important;
+}
+
+/* Fix for dropdown selectors */
+.swap-modal-container select {
+  background-color: #23263B !important;
+  border: 1px solid rgba(59, 130, 246, 0.3) !important;
+  color: white !important;
+  -webkit-text-fill-color: white !important;
+  appearance: auto !important;
+  padding-right: 2rem !important;
 }

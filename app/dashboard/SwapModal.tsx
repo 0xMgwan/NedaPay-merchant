@@ -55,11 +55,11 @@ const SwapModal: React.FC<SwapModalProps> = ({ open, fromSymbol, onClose, onSwap
 
 
   // Get token and factory addresses
-  const fromToken = stablecoins.find(c => c.baseToken === fromSymbol)?.address;
-  const toToken = stablecoins.find(c => c.baseToken === toSymbol)?.address;
+  const fromToken = stablecoins.find((c: any) => c.baseToken === fromSymbol)?.address;
+  const toToken = stablecoins.find((c: any) => c.baseToken === toSymbol)?.address;
   // Get decimals for input and output tokens
-  const fromTokenObj = stablecoins.find(c => c.baseToken === fromSymbol);
-  const toTokenObj = stablecoins.find(c => c.baseToken === toSymbol);
+  const fromTokenObj = stablecoins.find((c: any) => c.baseToken === fromSymbol);
+  const toTokenObj = stablecoins.find((c: any) => c.baseToken === toSymbol);
   const fromDecimals = fromTokenObj?.decimals ?? 18;
   const toDecimals = toTokenObj?.decimals ?? 18;
   // Use the official Aerodrome PoolFactory address for Base
@@ -205,7 +205,7 @@ const SwapModal: React.FC<SwapModalProps> = ({ open, fromSymbol, onClose, onSwap
     setSwapSuccess(null);
   }, [open, fromSymbol]);
 
-  const availableToCoins = stablecoins.filter(c => c.baseToken !== fromSymbol);
+  const availableToCoins = stablecoins.filter((c: any) => c.baseToken !== fromSymbol);
 
   // Live balances for from and to tokens
   const [fromBalance, setFromBalance] = useState('0');
@@ -243,8 +243,8 @@ const SwapModal: React.FC<SwapModalProps> = ({ open, fromSymbol, onClose, onSwap
 
 
   return (
-    <div className="swap-modal-container fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm transition-all duration-300">
-      <div className="relative bg-[#181A20] rounded-2xl shadow-2xl w-full max-w-md flex flex-col border border-slate-700 p-0 animate-fadeInScale">
+    <div className="swap-modal-container fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm transition-all duration-300">
+      <div className="relative bg-[#181A20] rounded-2xl shadow-2xl w-full max-w-md flex flex-col border border-slate-700 p-0 animate-fadeInScale overflow-hidden">
         {/* Close button */}
         <button onClick={onClose} className="absolute top-4 right-4 text-slate-400 hover:text-blue-400 text-2xl focus:outline-none" aria-label="Close">
           &times;
