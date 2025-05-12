@@ -451,14 +451,6 @@ const createSmartWallet = async () => {
               
               <div className="p-2 space-y-1">
                 <button 
-                  onClick={createSmartWallet}
-                  disabled={isCreatingSmartWallet}
-                  className="block w-full text-left px-4 py-2 text-blue-600 dark:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isCreatingSmartWallet ? 'Creating Smart Wallet...' : 'Create Smart Wallet'}
-                </button>
-                
-                <button 
                   onClick={handleDisconnect}
                   className="block w-full text-left px-4 py-2 text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                 >

@@ -491,16 +491,16 @@ function HomeContent() {
                       </svg>
                     </div>
                     <div className="flex flex-col items-center">
-                      <div className="relative">
+                      <div>
                         <div className="w-16 h-8 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center text-green-800 dark:text-green-200 text-xs font-bold">
                           +100 USDC
                         </div>
-                        <div className="absolute -right-2 -top-2 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-xs animate-pulse">
+                      </div>
+                      <div className="mt-2 text-xs text-gray-500 dark:text-gray-400 flex items-center">
+                        Transaction confirmed
+                        <div className="ml-1 w-4 h-4 bg-green-500 rounded-full flex items-center justify-center text-white text-xs">
                           ✓
                         </div>
-                      </div>
-                      <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-                        Transaction confirmed
                       </div>
                     </div>
                   </div>
