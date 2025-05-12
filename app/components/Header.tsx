@@ -32,13 +32,20 @@ export default function Header() {
       const storageConnected = localStorage.getItem('walletConnected') === 'true';
       setWalletConnected(cookieConnected || storageConnected);
     };
+    
+    // Initial check
     checkWallet();
+    
+    // Listen for storage events (when localStorage changes)
     window.addEventListener('storage', checkWallet);
-    // Optionally poll cookie every second (cookies don't trigger events)
-    const interval = setInterval(checkWallet, 1000);
+    
+    // Custom event for wallet connection changes
+    const handleWalletEvent = () => checkWallet();
+    window.addEventListener('walletConnectionChanged', handleWalletEvent);
+    
     return () => {
       window.removeEventListener('storage', checkWallet);
-      clearInterval(interval);
+      window.removeEventListener('walletConnectionChanged', handleWalletEvent);
     };
   }, []);
 
