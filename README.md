@@ -1,6 +1,6 @@
 # NEDA Pay 
 
-A robust, multi-chain merchant dashboard for the NEDA Pay ecosystem that enables businesses, merchants and creators to accept all local stablecoins, generate payment links, swap to their preferred currency and keep track of analytics and performance. Built with Next.js, React, ethers.js, wagmi, and Coinbase OnchainKit, it allows merchants to view real-time balances, connect wallets, and manage stablecoins across supported EVM networks.
+A robust, multi-chain merchant dashboard for the NEDA Pay ecosystem that enables businesses, merchants and creators to accept all local stablecoins, generate payment links, swap to their preferred currency and keep track of analytics and performance. Built with Next.js, React, ethers.js, wagmi, and Coinbase OnchainKit, it allows merchants to view real-time balances, connect wallets, swap and manage stablecoins across supported EVM networks.
 
 ---
 
