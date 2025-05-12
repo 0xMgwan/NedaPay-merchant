@@ -475,7 +475,7 @@ function HomeContent() {
             </div>
             
             {/* FAQ section */}
-            <div className="mt-16 mb-8 px-4 lg:px-12">
+            <div id="faq" className="mt-16 mb-8 px-4 lg:px-12">
               <div className="relative bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-8 rounded-2xl border border-blue-100 dark:border-blue-800 shadow-lg overflow-hidden">
                 {/* Decorative elements */}
                 <div className="absolute -top-12 -right-12 w-40 h-40 bg-blue-400/10 dark:bg-blue-600/10 rounded-full blur-3xl"></div>
