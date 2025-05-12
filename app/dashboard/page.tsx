@@ -11,7 +11,7 @@ import { Toaster, toast } from 'react-hot-toast';
 import TransactionTable from './TransactionTable';
 import { stablecoins } from '../data/stablecoins';
 import { ethers } from 'ethers';
-import { getProvider } from '../utils/rpcProvider';
+import { getProvider } from '../utils/rpcProvider.js';
 import { 
   Chart as ChartJS, 
   CategoryScale, 

@@ -8,10 +8,9 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  // Allow importing TypeScript files directly
+  // Experimental features
   experimental: {
-    esmExternals: true,
-    allowImportingTsExtensions: true
+    esmExternals: true
   },
   // Ignore ESLint errors during build
   eslint: {
