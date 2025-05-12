@@ -435,12 +435,12 @@ function HomeContent() {
                         <div className="w-16 h-8 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center text-green-800 dark:text-green-200 text-xs font-bold">
                           +100 USDC
                         </div>
-                        <div className="absolute -right-2 -top-2 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-xs animate-pulse">
+                      </div>
+                      <div className="mt-2 text-xs flex items-center justify-center">
+                        <span className="text-gray-500 dark:text-gray-400">Transaction confirmed</span>
+                        <div className="ml-1.5 w-4 h-4 bg-green-500 rounded-full flex items-center justify-center text-white text-xs font-bold shadow-sm transform hover:scale-110 transition-all duration-300 border border-green-300 dark:border-green-700">
                           ✓
                         </div>
-                      </div>
-                      <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-                        Transaction confirmed
                       </div>
                     </div>
                   </div>
