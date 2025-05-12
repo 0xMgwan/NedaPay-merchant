@@ -38,8 +38,6 @@ A robust, multi-chain merchant dashboard for the NEDA Pay ecosystem that enables
 - **Network Detection:**
   - Detects the connected network and prompts users to switch if not on Base Mainnet.
   - Only fetches balances for tokens on the current chain (using `chainId`).
-- **Smart Wallets:**
-  - Create and manage smart wallets for enhanced security and lower fees.
 - **Error Handling:**
   - Per-token error icons and tooltips for contract call failures (e.g., missing `decimals()` function).
   - Suppresses uncaught contract errors in the browser console.
