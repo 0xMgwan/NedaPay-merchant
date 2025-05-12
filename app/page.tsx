@@ -332,12 +332,14 @@ function HomeContent() {
               {/* Step 1 */}
               <div className="relative group">
                 <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border border-blue-100 dark:border-blue-800 h-full hover:shadow-2xl transition-all duration-300 hover:border-blue-300 dark:hover:border-blue-600">
-                  <div className="flex items-center mb-4">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 dark:from-blue-600 dark:to-indigo-700 flex items-center justify-center text-white font-bold text-xl shadow-lg z-10 group-hover:scale-110 transition-transform duration-300 border-2 border-white dark:border-gray-800 mr-3">
-                      <span className="relative z-10">1.</span>
-                      <div className="absolute inset-0 rounded-full bg-blue-400 dark:bg-blue-500 blur-sm opacity-50 group-hover:opacity-70 transition-opacity"></div>
+                  <div className="flex flex-col mb-4">
+                    <div className="flex items-center mb-2">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 dark:from-blue-600 dark:to-indigo-700 flex items-center justify-center text-white font-bold text-xl shadow-lg z-10 group-hover:scale-110 transition-transform duration-300 border-2 border-white dark:border-gray-800">
+                        <span className="relative z-10">1</span>
+                        <div className="absolute inset-0 rounded-full bg-blue-400 dark:bg-blue-500 blur-sm opacity-50 group-hover:opacity-70 transition-opacity"></div>
+                      </div>
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white pl-1">
                       Connect Your Wallet
                     </h3>
                   </div>
@@ -371,12 +373,14 @@ function HomeContent() {
               {/* Step 2 */}
               <div className="relative group">
                 <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border border-blue-100 dark:border-blue-800 h-full hover:shadow-2xl transition-all duration-300 hover:border-blue-300 dark:hover:border-blue-600">
-                  <div className="flex items-center mb-4">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 dark:from-indigo-600 dark:to-purple-700 flex items-center justify-center text-white font-bold text-xl shadow-lg z-10 group-hover:scale-110 transition-transform duration-300 border-2 border-white dark:border-gray-800 mr-3">
-                      <span className="relative z-10">2.</span>
-                      <div className="absolute inset-0 rounded-full bg-indigo-400 dark:bg-indigo-500 blur-sm opacity-50 group-hover:opacity-70 transition-opacity"></div>
+                  <div className="flex flex-col mb-4">
+                    <div className="flex items-center mb-2">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 dark:from-indigo-600 dark:to-purple-700 flex items-center justify-center text-white font-bold text-xl shadow-lg z-10 group-hover:scale-110 transition-transform duration-300 border-2 border-white dark:border-gray-800">
+                        <span className="relative z-10">2</span>
+                        <div className="absolute inset-0 rounded-full bg-indigo-400 dark:bg-indigo-500 blur-sm opacity-50 group-hover:opacity-70 transition-opacity"></div>
+                      </div>
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white pl-1">
                       Create Payment Links
                     </h3>
                   </div>
@@ -406,19 +410,16 @@ function HomeContent() {
               {/* Step 3 */}
               <div className="relative group">
                 <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border border-blue-100 dark:border-blue-800 h-full hover:shadow-2xl transition-all duration-300 hover:border-blue-300 dark:hover:border-blue-600">
-                  <div className="flex items-center mb-4">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-teal-600 dark:from-green-600 dark:to-teal-700 flex items-center justify-center text-white font-bold text-xl shadow-lg z-10 group-hover:scale-110 transition-transform duration-300 border-2 border-white dark:border-gray-800 mr-3">
-                      <span className="relative z-10">3.</span>
-                      <div className="absolute inset-0 rounded-full bg-green-400 dark:bg-green-500 blur-sm opacity-50 group-hover:opacity-70 transition-opacity"></div>
-                    </div>
-                    <div className="flex items-center">
-                      <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                        Receive Payments
-                      </h3>
-                      <div className="ml-2 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-base font-bold shadow-md transform hover:scale-110 transition-all duration-300 border border-green-300 dark:border-green-700">
-                        ✓
+                  <div className="flex flex-col mb-4">
+                    <div className="flex items-center mb-2">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-teal-600 dark:from-green-600 dark:to-teal-700 flex items-center justify-center text-white font-bold text-xl shadow-lg z-10 group-hover:scale-110 transition-transform duration-300 border-2 border-white dark:border-gray-800">
+                        <span className="relative z-10">3</span>
+                        <div className="absolute inset-0 rounded-full bg-green-400 dark:bg-green-500 blur-sm opacity-50 group-hover:opacity-70 transition-opacity"></div>
                       </div>
                     </div>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white pl-1">
+                      Receive Payments
+                    </h3>
                   </div>
                   <p className="text-gray-600 dark:text-gray-300 mb-4">
                     Customers pay using their NEDA Pay app and you receive stablecoins instantly
@@ -434,12 +435,12 @@ function HomeContent() {
                         <div className="w-16 h-8 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center text-green-800 dark:text-green-200 text-xs font-bold">
                           +100 USDC
                         </div>
-                      </div>
-                      <div className="mt-2 text-xs flex items-center justify-center">
-                        <span className="text-gray-500 dark:text-gray-400">Transaction confirmed</span>
-                        <div className="ml-1.5 w-4 h-4 bg-green-500 rounded-full flex items-center justify-center text-white text-xs font-bold shadow-sm transform hover:scale-110 transition-all duration-300 border border-green-300 dark:border-green-700">
+                        <div className="absolute -right-2 -top-2 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-xs animate-pulse">
                           ✓
                         </div>
+                      </div>
+                      <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                        Transaction confirmed
                       </div>
                     </div>
                   </div>
@@ -449,12 +450,14 @@ function HomeContent() {
               {/* Step 4 */}
               <div className="relative group">
                 <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border border-blue-100 dark:border-blue-800 h-full hover:shadow-2xl transition-all duration-300 hover:border-blue-300 dark:hover:border-blue-600">
-                  <div className="flex items-center mb-4">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-600 dark:from-purple-600 dark:to-pink-700 flex items-center justify-center text-white font-bold text-xl shadow-lg z-10 group-hover:scale-110 transition-transform duration-300 border-2 border-white dark:border-gray-800 mr-3">
-                      <span className="relative z-10">4.</span>
-                      <div className="absolute inset-0 rounded-full bg-purple-400 dark:bg-purple-500 blur-sm opacity-50 group-hover:opacity-70 transition-opacity"></div>
+                  <div className="flex flex-col mb-4">
+                    <div className="flex items-center mb-2">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-600 dark:from-purple-600 dark:to-pink-700 flex items-center justify-center text-white font-bold text-xl shadow-lg z-10 group-hover:scale-110 transition-transform duration-300 border-2 border-white dark:border-gray-800">
+                        <span className="relative z-10">4</span>
+                        <div className="absolute inset-0 rounded-full bg-purple-400 dark:bg-purple-500 blur-sm opacity-50 group-hover:opacity-70 transition-opacity"></div>
+                      </div>
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white pl-1">
                       Swap Stablecoins
                     </h3>
                   </div>
@@ -584,21 +587,12 @@ function HomeContent() {
 </div>
 
 {/* CTA Section */}
-<div className="relative overflow-hidden rounded-3xl mb-12 shadow-2xl transform hover:scale-[1.01] transition-all duration-300">
-  {/* Enhanced gradient background with more vibrant colors - no border */}
-  <div className="absolute inset-0 bg-gradient-to-br from-blue-500 via-indigo-600 to-purple-700 dark:from-blue-600 dark:via-indigo-700 dark:to-purple-800 opacity-90"></div>
-  
-  {/* Improved backdrop blur with a subtle pattern overlay */}
-  <div className="absolute inset-0 bg-blue-600/10 dark:bg-blue-900/20 backdrop-blur-sm bg-opacity-80 mix-blend-overlay"></div>
-  
-  {/* Decorative elements - larger, more vibrant, and with better positioning */}
-  <div className="absolute -top-20 -right-20 w-80 h-80 bg-indigo-400/40 dark:bg-indigo-500/40 rounded-full blur-3xl animate-pulse-slow"></div>
-  <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-blue-400/40 dark:bg-blue-500/40 rounded-full blur-3xl animate-pulse-slow"></div>
-  
-  {/* Additional decorative elements for more visual interest */}
-  <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-purple-400/30 dark:bg-purple-500/30 rounded-full blur-2xl animate-float"></div>
-  <div className="absolute bottom-1/3 right-1/3 w-24 h-24 bg-blue-300/30 dark:bg-blue-400/30 rounded-full blur-xl animate-float" style={{animationDelay: '1s'}}></div>
-  
+<div className="relative overflow-hidden rounded-3xl mb-12 shadow-2xl">
+  <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 dark:from-blue-700 dark:via-indigo-700 dark:to-purple-700"></div>
+  <div className="absolute inset-0 bg-blue-600/20 dark:bg-blue-900/30 backdrop-blur-sm"></div>
+  <div className="absolute -top-24 -right-24 w-64 h-64 bg-indigo-400/30 dark:bg-indigo-600/30 rounded-full blur-3xl animate-pulse-slow"></div>
+  <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-blue-400/30 dark:bg-blue-600/30 rounded-full blur-3xl animate-pulse-slow"></div>
+
   <div className="relative z-10 px-8 py-16 text-center text-white">
     <div className="mb-2 flex justify-center">
       <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm text-white text-sm font-medium">
