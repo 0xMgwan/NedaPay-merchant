@@ -105,6 +105,26 @@ function isMobile() {
 }
 
 export default function WalletSelector() {
+  // Mobile-specific styles
+  const mobileStyles = `
+    @media (max-width: 640px) {
+      .wallet-button {
+        padding: 4px 8px !important;
+        font-size: 0.7rem !important;
+      }
+      .wallet-icon {
+        width: 20px !important;
+        height: 20px !important;
+        margin-right: 4px !important;
+      }
+      .wallet-address {
+        font-size: 0.7rem !important;
+      }
+      .wallet-dropdown {
+        width: 220px !important;
+      }
+    }
+  `;
   const [showOptions, setShowOptions] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
   const [isCreatingSmartWallet, setIsCreatingSmartWallet] = useState(false);
@@ -351,15 +371,16 @@ const createSmartWallet = async () => {
 
   return (
     <div className="relative" ref={dropdownRef}>
+      <style jsx>{mobileStyles}</style>
       {isConnected ? (
         <button
           onClick={(e) => {
             e.stopPropagation();
             setShowOptions(!showOptions);
           }}
-          className="flex items-center space-x-2 bg-white/80 dark:bg-slate-900/60 hover:bg-blue-50 dark:hover:bg-blue-800 text-slate-800 dark:text-white border-2 border-blue-400 dark:border-blue-300 px-2 sm:px-3 py-1 rounded-lg transition-all duration-200 shadow-sm"
+          className="wallet-button flex items-center space-x-2 bg-white/80 dark:bg-slate-900/60 hover:bg-blue-50 dark:hover:bg-blue-800 text-slate-800 dark:text-white border-2 border-blue-400 dark:border-blue-300 px-2 sm:px-3 py-1 rounded-lg transition-all duration-200 shadow-sm"
         >
-          <div className="w-6 h-6 rounded-full flex items-center justify-center mr-2 bg-blue-100 dark:bg-blue-900">
+          <div className="wallet-icon w-6 h-6 rounded-full flex items-center justify-center mr-2 bg-blue-100 dark:bg-blue-900">
   {connector?.id === 'coinbaseWallet' || connector?.name === 'Coinbase Wallet' ? (
     // Coinbase Wallet Logo
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -375,7 +396,7 @@ const createSmartWallet = async () => {
     </svg>
   )}
 </div>
-          <div className="text-xs sm:text-sm font-bold">
+          <div className="wallet-address text-xs sm:text-sm font-bold">
             {address ? (
               <>
                 <BaseNameDisplay address={address || ''} />
@@ -406,7 +427,7 @@ const createSmartWallet = async () => {
       
       {showOptions && (
         <div 
-          className="absolute right-0 mt-2 w-64 rounded-xl shadow-xl bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 focus:outline-none z-50 border-2 border-blue-100 dark:border-blue-900"
+          className="wallet-dropdown absolute right-0 mt-2 w-64 rounded-xl shadow-xl bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 focus:outline-none z-50 border-2 border-blue-100 dark:border-blue-900"
           onClick={(e: React.MouseEvent) => e.stopPropagation()}
           style={{ maxHeight: '80vh', overflowY: 'auto' }}
         >

@@ -61,6 +61,23 @@ export default function Header() {
 
   return (
     <header className={`sticky top-0 z-50 backdrop-blur-md transition-all duration-300 ${scrolled ? 'bg-white/90 dark:bg-slate-900/90 shadow-md' : 'bg-white/70 dark:bg-slate-800/70 shadow-sm'} border-b border-gray-200/70 dark:border-gray-700/70`}>
+      {/* Mobile-specific styles */}
+      <style jsx>{`
+        @media (max-width: 640px) {
+          .mobile-nav-link {
+            padding: 4px 8px !important;
+            font-size: 0.7rem !important;
+          }
+          .mobile-nav-link svg {
+            width: 12px !important;
+            height: 12px !important;
+          }
+          .mobile-wallet-btn {
+            padding: 4px 8px !important;
+            font-size: 0.75rem !important;
+          }
+        }
+      `}</style>
       {/* Decorative top border with gradient */}
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500"></div>
       
@@ -103,7 +120,7 @@ export default function Header() {
                 <>
                   <a 
                     href="#how-it-works" 
-                    className="relative overflow-hidden px-3 sm:px-4 py-1.5 text-xs sm:text-sm rounded-lg text-slate-700 dark:text-slate-200 font-medium bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 hover:from-blue-200 hover:to-indigo-200 dark:hover:from-blue-800/40 dark:hover:to-indigo-800/40 transition-all duration-300 shadow-sm group"
+                    className="mobile-nav-link relative overflow-hidden px-3 sm:px-4 py-1.5 text-xs sm:text-sm rounded-lg text-slate-700 dark:text-slate-200 font-medium bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 hover:from-blue-200 hover:to-indigo-200 dark:hover:from-blue-800/40 dark:hover:to-indigo-800/40 transition-all duration-300 shadow-sm group"
                   >
                     <span className="relative z-10 flex items-center">
                       <svg className="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -116,7 +133,7 @@ export default function Header() {
                   <a 
                     href="#faq" 
                     onClick={handleFAQClick}
-                    className="relative overflow-hidden px-3 sm:px-4 py-1.5 text-xs sm:text-sm rounded-lg text-slate-700 dark:text-slate-200 font-medium bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 hover:from-purple-200 hover:to-pink-200 dark:hover:from-purple-800/40 dark:hover:to-pink-800/40 transition-all duration-300 shadow-sm group"
+                    className="mobile-nav-link relative overflow-hidden px-3 sm:px-4 py-1.5 text-xs sm:text-sm rounded-lg text-slate-700 dark:text-slate-200 font-medium bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 hover:from-purple-200 hover:to-pink-200 dark:hover:from-purple-800/40 dark:hover:to-pink-800/40 transition-all duration-300 shadow-sm group"
                   >
                     <span className="relative z-10 flex items-center">
                       <svg className="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

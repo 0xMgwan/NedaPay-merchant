@@ -11,10 +11,17 @@ import { stablecoins } from './data/stablecoins';
 function HomeContent() {
   const [mounted, setMounted] = useState(false);
   const [showWalletPrompt, setShowWalletPrompt] = useState(false);
-  
-  // Initialize with default values
-  const [address, setAddress] = useState<string | undefined>('');
   const [isConnected, setIsConnected] = useState(false);
+  const [address, setAddress] = useState<string | null>(null);
+  const [expandedFaqs, setExpandedFaqs] = useState<{[key: number]: boolean}>({});
+  
+  const toggleFaq = (index: number) => {
+    setExpandedFaqs(prev => ({
+      ...prev,
+      [index]: !prev[index]
+    }));
+  };
+
   // Using window.location for navigation instead of useRouter
   const prevConnected = useRef(isConnected);
   
@@ -126,6 +133,57 @@ function HomeContent() {
           0%, 100% { opacity: 1; }
           50% { opacity: 0.8; }
         }
+        
+        /* Mobile-specific styles for stablecoins */
+        @media (max-width: 640px) {
+          .stablecoin-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 4px !important;
+          }
+          .stablecoin-item {
+            padding: 4px !important;
+            font-size: 0.7rem !important;
+            border-width: 1px !important;
+          }
+          .stablecoin-flag {
+            font-size: 1.25rem !important;
+            margin-bottom: 1px !important;
+          }
+          .stablecoin-name {
+            font-size: 0.65rem !important;
+            font-weight: bold !important;
+            margin-bottom: 0 !important;
+          }
+          .stablecoin-region {
+            font-size: 0.55rem !important;
+            text-align: center !important;
+            line-height: 1 !important;
+          }
+        }
+        
+        /* Desktop styles to ensure original layout */
+        @media (min-width: 641px) {
+          .stablecoin-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+          }
+          .stablecoin-item {
+            padding: 12px;
+          }
+          .stablecoin-flag {
+            font-size: 2rem;
+            margin-bottom: 4px;
+          }
+          .stablecoin-name {
+            font-size: 0.875rem;
+            font-weight: bold;
+          }
+          .stablecoin-region {
+            font-size: 0.75rem;
+          }
+        }
       `}</style>
       <Header />
       
@@ -152,10 +210,6 @@ function HomeContent() {
               <div className="flex items-center bg-white/80 dark:bg-blue-900/30 px-4 py-3 rounded-xl shadow-md border border-blue-50 dark:border-blue-800">
                 <span className="text-2xl mr-3">🔒</span>
                 <span className="font-medium">Secure Payments</span>
-              </div>
-              <div className="flex items-center bg-green-100/80 dark:bg-green-900/30 px-4 py-3 rounded-xl shadow-md border border-green-100 dark:border-green-800 animate-pulse-slow">
-                <span className="text-2xl mr-3">💰</span>
-                <span className="font-bold text-green-700 dark:text-green-300">Zero Fees!</span>
               </div>
             </div>
             
@@ -205,12 +259,12 @@ function HomeContent() {
           <div className="w-full lg:w-1/2 relative">
             <div className="relative bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900 p-6 rounded-2xl shadow-2xl overflow-hidden border border-blue-200 dark:border-blue-700">
               <div className="absolute top-0 left-0 w-full h-full bg-white/20 dark:bg-blue-500/10 backdrop-blur-sm rounded-2xl"></div>
-              <div className="relative z-10 grid grid-cols-3 gap-3">
+              <div className="stablecoin-grid relative z-10 grid grid-cols-3 gap-3">
                 {stablecoins.map((coin: any, index: number) => (
-                  <div key={index} className={`bg-white/80 dark:bg-gray-800/80 p-3 rounded-xl shadow-lg border border-blue-200 dark:border-blue-700 flex flex-col items-center justify-center animate-float`} style={{animationDelay: `${index * 0.1}s`}}>
-                    <div className="text-2xl mb-1">{coin.flag}</div>
-                    <div className="font-bold text-sm">{coin.baseToken}</div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">{coin.region}</div>
+                  <div key={index} className={`stablecoin-item bg-white/80 dark:bg-gray-800/80 p-3 rounded-xl shadow-lg border border-blue-200 dark:border-blue-700 flex flex-col items-center justify-center animate-float`} style={{animationDelay: `${index * 0.1}s`}}>
+                    <div className="stablecoin-flag text-2xl mb-1">{coin.flag}</div>
+                    <div className="stablecoin-name font-bold text-sm">{coin.baseToken}</div>
+                    <div className="stablecoin-region text-xs text-gray-500 dark:text-gray-400">{coin.region}</div>
                   </div>
                 ))}
               </div>
@@ -332,14 +386,12 @@ function HomeContent() {
               {/* Step 1 */}
               <div className="relative group">
                 <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border border-blue-100 dark:border-blue-800 h-full hover:shadow-2xl transition-all duration-300 hover:border-blue-300 dark:hover:border-blue-600">
-                  <div className="flex flex-col mb-4">
-                    <div className="flex items-center mb-2">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 dark:from-blue-600 dark:to-indigo-700 flex items-center justify-center text-white font-bold text-xl shadow-lg z-10 group-hover:scale-110 transition-transform duration-300 border-2 border-white dark:border-gray-800">
-                        <span className="relative z-10">1</span>
-                        <div className="absolute inset-0 rounded-full bg-blue-400 dark:bg-blue-500 blur-sm opacity-50 group-hover:opacity-70 transition-opacity"></div>
-                      </div>
+                  <div className="flex items-center mb-4">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 dark:from-blue-600 dark:to-indigo-700 flex items-center justify-center text-white font-bold text-xl shadow-lg z-10 group-hover:scale-110 transition-transform duration-300 border-2 border-white dark:border-gray-800 mr-3">
+                      <span className="relative z-10">1.</span>
+                      <div className="absolute inset-0 rounded-full bg-blue-400 dark:bg-blue-500 blur-sm opacity-50 group-hover:opacity-70 transition-opacity"></div>
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white pl-1">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                       Connect Your Wallet
                     </h3>
                   </div>
@@ -373,14 +425,12 @@ function HomeContent() {
               {/* Step 2 */}
               <div className="relative group">
                 <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border border-blue-100 dark:border-blue-800 h-full hover:shadow-2xl transition-all duration-300 hover:border-blue-300 dark:hover:border-blue-600">
-                  <div className="flex flex-col mb-4">
-                    <div className="flex items-center mb-2">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 dark:from-indigo-600 dark:to-purple-700 flex items-center justify-center text-white font-bold text-xl shadow-lg z-10 group-hover:scale-110 transition-transform duration-300 border-2 border-white dark:border-gray-800">
-                        <span className="relative z-10">2</span>
-                        <div className="absolute inset-0 rounded-full bg-indigo-400 dark:bg-indigo-500 blur-sm opacity-50 group-hover:opacity-70 transition-opacity"></div>
-                      </div>
+                  <div className="flex items-center mb-4">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 dark:from-indigo-600 dark:to-purple-700 flex items-center justify-center text-white font-bold text-xl shadow-lg z-10 group-hover:scale-110 transition-transform duration-300 border-2 border-white dark:border-gray-800 mr-3">
+                      <span className="relative z-10">2.</span>
+                      <div className="absolute inset-0 rounded-full bg-indigo-400 dark:bg-indigo-500 blur-sm opacity-50 group-hover:opacity-70 transition-opacity"></div>
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white pl-1">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                       Create Payment Links
                     </h3>
                   </div>
@@ -410,14 +460,12 @@ function HomeContent() {
               {/* Step 3 */}
               <div className="relative group">
                 <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border border-blue-100 dark:border-blue-800 h-full hover:shadow-2xl transition-all duration-300 hover:border-blue-300 dark:hover:border-blue-600">
-                  <div className="flex flex-col mb-4">
-                    <div className="flex items-center mb-2">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-teal-600 dark:from-green-600 dark:to-teal-700 flex items-center justify-center text-white font-bold text-xl shadow-lg z-10 group-hover:scale-110 transition-transform duration-300 border-2 border-white dark:border-gray-800">
-                        <span className="relative z-10">3</span>
-                        <div className="absolute inset-0 rounded-full bg-green-400 dark:bg-green-500 blur-sm opacity-50 group-hover:opacity-70 transition-opacity"></div>
-                      </div>
+                  <div className="flex items-center mb-4">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-teal-600 dark:from-green-600 dark:to-teal-700 flex items-center justify-center text-white font-bold text-xl shadow-lg z-10 group-hover:scale-110 transition-transform duration-300 border-2 border-white dark:border-gray-800 mr-3">
+                      <span className="relative z-10">3.</span>
+                      <div className="absolute inset-0 rounded-full bg-green-400 dark:bg-green-500 blur-sm opacity-50 group-hover:opacity-70 transition-opacity"></div>
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white pl-1">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                       Receive Payments
                     </h3>
                   </div>
@@ -435,12 +483,12 @@ function HomeContent() {
                         <div className="w-16 h-8 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center text-green-800 dark:text-green-200 text-xs font-bold">
                           +100 USDC
                         </div>
-                      </div>
-                      <div className="mt-2 text-xs flex items-center justify-center">
-                        <span className="text-gray-500 dark:text-gray-400">Transaction confirmed</span>
-                        <div className="ml-1.5 w-4 h-4 bg-green-500 rounded-full flex items-center justify-center text-white text-xs font-bold shadow-sm transform hover:scale-110 transition-all duration-300 border border-green-300 dark:border-green-700">
+                        <div className="absolute -right-2 -top-2 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-xs animate-pulse">
                           ✓
                         </div>
+                      </div>
+                      <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                        Transaction confirmed
                       </div>
                     </div>
                   </div>
@@ -450,14 +498,12 @@ function HomeContent() {
               {/* Step 4 */}
               <div className="relative group">
                 <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border border-blue-100 dark:border-blue-800 h-full hover:shadow-2xl transition-all duration-300 hover:border-blue-300 dark:hover:border-blue-600">
-                  <div className="flex flex-col mb-4">
-                    <div className="flex items-center mb-2">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-600 dark:from-purple-600 dark:to-pink-700 flex items-center justify-center text-white font-bold text-xl shadow-lg z-10 group-hover:scale-110 transition-transform duration-300 border-2 border-white dark:border-gray-800">
-                        <span className="relative z-10">4</span>
-                        <div className="absolute inset-0 rounded-full bg-purple-400 dark:bg-purple-500 blur-sm opacity-50 group-hover:opacity-70 transition-opacity"></div>
-                      </div>
+                  <div className="flex items-center mb-4">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-600 dark:from-purple-600 dark:to-pink-700 flex items-center justify-center text-white font-bold text-xl shadow-lg z-10 group-hover:scale-110 transition-transform duration-300 border-2 border-white dark:border-gray-800 mr-3">
+                      <span className="relative z-10">4.</span>
+                      <div className="absolute inset-0 rounded-full bg-purple-400 dark:bg-purple-500 blur-sm opacity-50 group-hover:opacity-70 transition-opacity"></div>
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white pl-1">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                       Swap Stablecoins
                     </h3>
                   </div>
@@ -514,74 +560,114 @@ function HomeContent() {
         
 
 
-    <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border border-blue-100 dark:border-blue-800 hover:shadow-2xl transition-all duration-300">
-      <div className="flex items-start mb-4">
-        <div className="bg-indigo-100 dark:bg-indigo-900/50 w-10 h-10 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-          <span className="text-xl">❓</span>
-        </div>
-        <div>
-          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">What is NEDA Pay?</h3>
-          <p className="text-gray-600 dark:text-gray-300">
-            NEDA Pay is a platform that enables merchants to accept and manage local stablecoin payments easily and securely on the Base blockchain.
-          </p>
-        </div>
-      </div>
-    </div>
+    {/* FAQ Items with toggle functionality */}
+    <div className="px-1 sm:px-4 mb-8">
+      <ul className="rounded-xl overflow-hidden shadow-lg m-0 p-0">
+        {/* FAQ Item 1 */}
+        <li className="bg-blue-500 dark:bg-blue-600 border-b border-blue-400 dark:border-blue-500 rounded-t-xl">
+          <button 
+            onClick={() => toggleFaq(0)} 
+            className="w-full py-3 px-4 flex items-center justify-between focus:outline-none text-white"
+          >
+            <div className="flex items-center">
+              <span className="text-xl mr-3">❓</span>
+              <h3 className="text-base font-semibold text-white text-left m-0">What is NEDA Pay?</h3>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 text-white transform transition-transform duration-300 ${expandedFaqs[0] ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div className={`px-4 py-3 bg-white dark:bg-gray-800 transition-all duration-300 ${expandedFaqs[0] ? 'block' : 'hidden'}`}>
+            <p className="text-gray-600 dark:text-gray-300 m-0">
+              NEDA Pay is a platform that enables merchants to accept and manage local stablecoin payments easily and securely on the Base blockchain.
+            </p>
+          </div>
+        </li>
 
-    <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border border-blue-100 dark:border-blue-800 hover:shadow-2xl transition-all duration-300">
-      <div className="flex items-start mb-4">
-        <div className="bg-green-100 dark:bg-green-900/50 w-10 h-10 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-          <span className="text-xl">💰</span>
-        </div>
-        <div>
-          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">How do I receive stablecoin payments?</h3>
-          <p className="text-gray-600 dark:text-gray-300">
-            Simply connect your Base wallet, generate payment links or QR codes, and share them with your customers. Payments are settled instantly to your wallet in local stablecoins.
-          </p>
-        </div>
-      </div>
-    </div>
+        {/* FAQ Item 2 */}
+        <li className="bg-blue-500 dark:bg-blue-600 border-b border-blue-400 dark:border-blue-500">
+          <button 
+            onClick={() => toggleFaq(1)} 
+            className="w-full py-3 px-4 flex items-center justify-between focus:outline-none text-white"
+          >
+            <div className="flex items-center">
+              <span className="text-xl mr-3">💰</span>
+              <h3 className="text-base font-semibold text-white text-left m-0">How do I receive stablecoin payments?</h3>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 text-white transform transition-transform duration-300 ${expandedFaqs[1] ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div className={`px-4 py-3 bg-white dark:bg-gray-800 transition-all duration-300 ${expandedFaqs[1] ? 'block' : 'hidden'}`}>
+            <p className="text-gray-600 dark:text-gray-300 m-0">
+              Simply connect your Base wallet, generate payment links or QR codes, and share them with your customers. Payments are settled instantly to your wallet in local stablecoins.
+            </p>
+          </div>
+        </li>
 
-    <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border border-blue-100 dark:border-blue-800 hover:shadow-2xl transition-all duration-300">
-      <div className="flex items-start mb-4">
-        <div className="bg-yellow-100 dark:bg-yellow-900/50 w-10 h-10 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-          <span className="text-xl">🔒</span>
-        </div>
-        <div>
-          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Is NEDA Pay secure?</h3>
-          <p className="text-gray-600 dark:text-gray-300">
-            Yes! NEDA Pay uses secure wallet connections and never stores your private keys. All transactions happen directly on the blockchain for full transparency and safety.
-          </p>
-        </div>
-      </div>
-    </div>
+        {/* FAQ Item 3 */}
+        <li className="bg-blue-500 dark:bg-blue-600 border-b border-blue-400 dark:border-blue-500">
+          <button 
+            onClick={() => toggleFaq(2)} 
+            className="w-full py-3 px-4 flex items-center justify-between focus:outline-none text-white"
+          >
+            <div className="flex items-center">
+              <span className="text-xl mr-3">🔒</span>
+              <h3 className="text-base font-semibold text-white text-left m-0">Is NEDA Pay secure?</h3>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 text-white transform transition-transform duration-300 ${expandedFaqs[2] ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div className={`px-4 py-3 bg-white dark:bg-gray-800 transition-all duration-300 ${expandedFaqs[2] ? 'block' : 'hidden'}`}>
+            <p className="text-gray-600 dark:text-gray-300 m-0">
+              Yes! NEDA Pay uses secure wallet connections and never stores your private keys. All transactions happen directly on the blockchain for full transparency and safety.
+            </p>
+          </div>
+        </li>
 
-    <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border border-blue-100 dark:border-blue-800 hover:shadow-2xl transition-all duration-300">
-      <div className="flex items-start mb-4">
-        <div className="bg-purple-100 dark:bg-purple-900/50 w-10 h-10 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-          <span className="text-xl">🌎</span>
-        </div>
-        <div>
-          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Can I use NEDA Pay internationally?</h3>
-          <p className="text-gray-600 dark:text-gray-300">
-            Yes, NEDA Pay enables merchants to accept stablecoin payments from customers around the world, as long as they use supported wallets and stablecoins on the Base blockchain.
-          </p>
-        </div>
-      </div>
-    </div>
+        {/* FAQ Item 4 */}
+        <li className="bg-blue-500 dark:bg-blue-600 border-b border-blue-400 dark:border-blue-500">
+          <button 
+            onClick={() => toggleFaq(3)} 
+            className="w-full py-3 px-4 flex items-center justify-between focus:outline-none text-white"
+          >
+            <div className="flex items-center">
+              <span className="text-xl mr-3">🌎</span>
+              <h3 className="text-base font-semibold text-white text-left m-0">Can I use NEDA Pay internationally?</h3>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 text-white transform transition-transform duration-300 ${expandedFaqs[3] ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div className={`px-4 py-3 bg-white dark:bg-gray-800 transition-all duration-300 ${expandedFaqs[3] ? 'block' : 'hidden'}`}>
+            <p className="text-gray-600 dark:text-gray-300 m-0">
+              Yes, NEDA Pay enables merchants to accept stablecoin payments from customers around the world, as long as they use supported wallets and stablecoins on the Base blockchain.
+            </p>
+          </div>
+        </li>
 
-    <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border border-blue-100 dark:border-blue-800 hover:shadow-2xl transition-all duration-300">
-      <div className="flex items-start mb-4">
-        <div className="bg-cyan-100 dark:bg-cyan-900/50 w-10 h-10 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-          <span className="text-xl">💸</span>
-        </div>
-        <div>
-          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">What fees does NEDA Pay charge?</h3>
-          <p className="text-gray-600 dark:text-gray-300">
-            NEDA Pay charges low transaction fees for each payment processed. You can view the detailed fee structure in your merchant dashboard or on our website.
-          </p>
-        </div>
-      </div>
+        {/* FAQ Item 5 */}
+        <li className="bg-blue-500 dark:bg-blue-600 rounded-b-xl">
+          <button 
+            onClick={() => toggleFaq(4)} 
+            className="w-full py-3 px-4 flex items-center justify-between focus:outline-none text-white"
+          >
+            <div className="flex items-center">
+              <span className="text-xl mr-3">💸</span>
+              <h3 className="text-base font-semibold text-white text-left m-0">What fees does NEDA Pay charge?</h3>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 text-white transform transition-transform duration-300 ${expandedFaqs[4] ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div className={`px-4 py-3 bg-white dark:bg-gray-800 transition-all duration-300 ${expandedFaqs[4] ? 'block' : 'hidden'}`}>
+            <p className="text-gray-600 dark:text-gray-300 m-0">
+              NEDA Pay charges low transaction fees for each payment processed. You can view the detailed fee structure in your merchant dashboard or on our website.
+            </p>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
 </div>
