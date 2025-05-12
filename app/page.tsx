@@ -91,21 +91,27 @@ function HomeContent() {
   }, []);
 
   useEffect(() => {
-    // Only redirect if the wallet just became connected
-    // Do NOT redirect if on /payment-link
+    // Only redirect if the wallet just became connected and not already redirected
     if (
       mounted &&
       isConnected &&
       address &&
-      !prevConnected.current &&
-      window.location.pathname !== '/payment-link' &&
-      !window.location.pathname.startsWith('/invoice')
+      !window.location.pathname.startsWith('/dashboard') &&
+      !window.location.pathname.startsWith('/payment-link') &&
+      !window.location.pathname.startsWith('/invoice') &&
+      !localStorage.getItem('redirectedToDashboard')
     ) {
-      console.log('[DEBUG] Redirecting to /dashboard from HomeContent. Current path:', window.location.pathname);
+      localStorage.setItem('redirectedToDashboard', 'true');
       window.location.href = '/dashboard';
     }
-    prevConnected.current = isConnected;
   }, [mounted, isConnected, address]);
+
+  // Clear the flag on dashboard mount
+  useEffect(() => {
+    if (window.location.pathname.startsWith('/dashboard')) {
+      localStorage.removeItem('redirectedToDashboard');
+    }
+  }, []);
 
   if (!mounted) return null;
   
@@ -200,7 +206,7 @@ function HomeContent() {
         <div className="flex flex-col-reverse lg:flex-row items-center justify-between mb-16 gap-4 sm:gap-8 p-4 sm:p-6 bg-white/20 dark:bg-blue-900/10 rounded-2xl border border-blue-100 dark:border-blue-800 shadow-lg">
           <div className="w-full lg:w-1/2 text-left">
             <h1 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent dark:from-blue-400 dark:to-indigo-300 leading-tight">
-              The Future of Merchant Payments is Here
+              The Future of Payments is Here
             </h1>
             <p className="text-xl md:text-2xl font-medium text-slate-700 dark:text-blue-100 mb-8 leading-relaxed">
               Accept local stablecoins for your business, manage payments, and swap between currencies instantly with ease
@@ -269,7 +275,7 @@ function HomeContent() {
           </div>
           
           <div className="w-full lg:w-1/2 relative">
-            <div className="relative bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900 p-3 sm:p-6 rounded-2xl shadow-2xl overflow-hidden border border-blue-200 dark:border-blue-700">
+            <div className="relative bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900 p-3 sm:p-6 rounded-2xl shadow-2xl overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-full bg-white/20 dark:bg-blue-500/10 backdrop-blur-sm rounded-2xl"></div>
               <div className="stablecoin-grid relative z-10 grid grid-cols-3 gap-3 max-h-[400px] overflow-y-auto">
                 {stablecoins.map((coin: any, index: number) => (
