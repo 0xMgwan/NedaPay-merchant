@@ -1,0 +1,35 @@
+// Prisma schema for NEDA Pay Merchant Portal
+// Using SQLite for local dev, can be Postgres in prod
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Transaction {
+  id         String   @id @default(uuid())
+  merchantId String
+  wallet     String
+  amount     Float
+  currency   String
+  status     String
+  txHash     String
+  createdAt  DateTime @default(now())
+}
+
+model PaymentLink {
+  id           String   @id @default(uuid())
+  merchantId   String
+  url          String   @unique
+  amount       Float
+  currency     String
+  description  String?
+  status       String   // e.g. 'active', 'redeemed', 'expired'
+  createdAt    DateTime @default(now())
+  redeemedAt   DateTime?
+}
+

@@ -1,0 +1,1 @@
+config/next.config.js

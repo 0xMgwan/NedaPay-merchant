@@ -1,0 +1,39 @@
+/* SwapModal.css */
+.swap-modal {
+  background-color: #181A20 !important;
+  color: white !important;
+}
+
+.swap-panel {
+  background-color: #23263B !important;
+  color: white !important;
+}
+
+.swap-text {
+  color: white !important;
+}
+
+.swap-text-secondary {
+  color: white !important;
+}
+
+.swap-input {
+  color: white !important;
+  -webkit-text-fill-color: white !important;
+}
+
+.swap-select {
+  background-color: #181A20 !important;
+  color: white !important;
+  -webkit-text-fill-color: white !important;
+}
+
+.swap-select option {
+  background-color: #23263B !important;
+  color: white !important;
+}
+
+.swap-details {
+  background-color: #23263B !important;
+  color: white !important;
+}
