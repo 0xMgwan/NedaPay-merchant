@@ -330,7 +330,7 @@ function HomeContent() {
                 <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border border-blue-100 dark:border-blue-800 h-full hover:shadow-2xl transition-all duration-300 hover:border-blue-300 dark:hover:border-blue-600">
                   <div className="flex items-center mb-4">
                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 dark:from-blue-600 dark:to-indigo-700 flex items-center justify-center text-white font-bold text-xl shadow-lg z-10 group-hover:scale-110 transition-transform duration-300 border-2 border-white dark:border-gray-800 mr-3">
-                      <span className="relative z-10">1</span>
+                      <span className="relative z-10">1.</span>
                       <div className="absolute inset-0 rounded-full bg-blue-400 dark:bg-blue-500 blur-sm opacity-50 group-hover:opacity-70 transition-opacity"></div>
                     </div>
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white">
@@ -369,7 +369,7 @@ function HomeContent() {
                 <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border border-blue-100 dark:border-blue-800 h-full hover:shadow-2xl transition-all duration-300 hover:border-blue-300 dark:hover:border-blue-600">
                   <div className="flex items-center mb-4">
                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 dark:from-indigo-600 dark:to-purple-700 flex items-center justify-center text-white font-bold text-xl shadow-lg z-10 group-hover:scale-110 transition-transform duration-300 border-2 border-white dark:border-gray-800 mr-3">
-                      <span className="relative z-10">2</span>
+                      <span className="relative z-10">2.</span>
                       <div className="absolute inset-0 rounded-full bg-indigo-400 dark:bg-indigo-500 blur-sm opacity-50 group-hover:opacity-70 transition-opacity"></div>
                     </div>
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white">
@@ -404,7 +404,7 @@ function HomeContent() {
                 <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border border-blue-100 dark:border-blue-800 h-full hover:shadow-2xl transition-all duration-300 hover:border-blue-300 dark:hover:border-blue-600">
                   <div className="flex items-center mb-4">
                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-teal-600 dark:from-green-600 dark:to-teal-700 flex items-center justify-center text-white font-bold text-xl shadow-lg z-10 group-hover:scale-110 transition-transform duration-300 border-2 border-white dark:border-gray-800 mr-3">
-                      <span className="relative z-10">3</span>
+                      <span className="relative z-10">3.</span>
                       <div className="absolute inset-0 rounded-full bg-green-400 dark:bg-green-500 blur-sm opacity-50 group-hover:opacity-70 transition-opacity"></div>
                     </div>
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white">
@@ -442,7 +442,7 @@ function HomeContent() {
                 <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border border-blue-100 dark:border-blue-800 h-full hover:shadow-2xl transition-all duration-300 hover:border-blue-300 dark:hover:border-blue-600">
                   <div className="flex items-center mb-4">
                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-600 dark:from-purple-600 dark:to-pink-700 flex items-center justify-center text-white font-bold text-xl shadow-lg z-10 group-hover:scale-110 transition-transform duration-300 border-2 border-white dark:border-gray-800 mr-3">
-                      <span className="relative z-10">4</span>
+                      <span className="relative z-10">4.</span>
                       <div className="absolute inset-0 rounded-full bg-purple-400 dark:bg-purple-500 blur-sm opacity-50 group-hover:opacity-70 transition-opacity"></div>
                     </div>
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white">
