@@ -1,19 +1,17 @@
 /** @type {import('next').NextConfig} */
-import cryptoBrowserify from 'crypto-browserify';
-import streamBrowserify from 'stream-browserify';
-import streamHttp from 'stream-http';
-import httpsBrowserify from 'https-browserify';
-import osBrowserify from 'os-browserify';
-import pathBrowserify from 'path-browserify';
-import buffer from 'buffer';
 
 const nextConfig = {
   // Base path configuration for deployment environments
   basePath: process.env.NEXT_PUBLIC_BASE_PATH || '',
   // Set to static export mode
-  // Completely ignore TypeScript errors during build
+  // Handle TypeScript errors during build
   typescript: {
     ignoreBuildErrors: true,
+  },
+  // Allow importing TypeScript files directly
+  experimental: {
+    esmExternals: true,
+    allowImportingTsExtensions: true
   },
   // Ignore ESLint errors during build
   eslint: {
@@ -27,13 +25,13 @@ const nextConfig = {
       fs: false,
       net: false,
       tls: false,
-      crypto: cryptoBrowserify,
-      stream: streamBrowserify,
-      http: streamHttp,
-      https: httpsBrowserify,
-      os: osBrowserify,
-      path: pathBrowserify,
-      buffer: buffer,
+      crypto: 'crypto-browserify',
+      stream: 'stream-browserify',
+      http: 'stream-http',
+      https: 'https-browserify',
+      os: 'os-browserify/browser',
+      path: 'path-browserify',
+      buffer: 'buffer/',
     };
     return config;
   },

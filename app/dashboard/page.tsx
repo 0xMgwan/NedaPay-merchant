@@ -42,7 +42,7 @@ ChartJS.register(
 // Function to process balances data
 const processBalances = (balanceData: Record<string, string>, networkChainId?: number) => {
   // Always show all stablecoins, but only real balances for tokens on the current network
-  const processed = stablecoins.map((coin) => {
+  const processed = stablecoins.map((coin: any) => {
     let balance = '0';
     if (!networkChainId || coin.chainId === networkChainId) {
       balance = balanceData[coin.baseToken] || '0';
@@ -57,18 +57,18 @@ const processBalances = (balanceData: Record<string, string>, networkChainId?: n
   });
 
   // Calculate total received
-  const total = processed.reduce((sum, coin) => sum + parseInt(coin.balance.replace(/,/g, '')), 0);
+  const total = processed.reduce((sum: number, coin: any) => sum + parseInt(coin.balance.replace(/,/g, '')), 0);
 
   // Calculate percentages
-  const processedCoins = processed.map(coin => ({
+  const processedCoins = processed.map((coin: any) => ({
     ...coin,
     percentage: total > 0 ? Math.round((parseInt(coin.balance.replace(/,/g, '')) / total) * 100) : 0
   }));
 
   // Ensure we have all stablecoins represented for display
-  const allStablecoins = stablecoins.map(coin => {
+  const allStablecoins = stablecoins.map((coin: any) => {
     // Find if this coin exists in processed data
-    const existingCoin = processed.find(p => p.symbol === coin.baseToken);
+    const existingCoin = processed.find((p: any) => p.symbol === coin.baseToken);
     if (existingCoin) {
       return existingCoin;
     }
@@ -89,14 +89,13 @@ const processBalances = (balanceData: Record<string, string>, networkChainId?: n
   };
 };
 
-// Format transactions for display with links and currency
 // Utility to fetch real incoming payments (ERC20 Transfer events) for all stablecoins on Base
 async function fetchIncomingPayments(merchantAddress: string) {
   if (!merchantAddress) return [];
   
   // Check cache first
-  const { getCachedTransactions, setCachedTransactions } = await import('../utils/transactionCache');
-  const cachedTransactions = getCachedTransactions(merchantAddress);
+  const transactionCache = await import('../utils/transactionCache');
+  const cachedTransactions = transactionCache.getCachedTransactions(merchantAddress);
   
   // If we have cached transactions, use them
   if (cachedTransactions) {
@@ -107,7 +106,7 @@ async function fetchIncomingPayments(merchantAddress: string) {
   console.log('Fetching fresh transactions for', merchantAddress);
   const ethers = (await import('ethers')).ethers;
   // Use robust fallback provider logic
-  const { getProvider } = await import('../utils/rpcProvider');
+  const { getProvider } = await import('../utils/rpcProvider.js');
   const provider = await getProvider();
   const ERC20_ABI = [
     "event Transfer(address indexed from, address indexed to, uint256 value)",
@@ -120,10 +119,10 @@ async function fetchIncomingPayments(merchantAddress: string) {
   const fromBlock = Math.max(latestBlock - 20000, 0); // Increased to 20000 blocks to show more historical data
   
   let allTxs: any[] = [];
-  const baseTokens = stablecoins.filter(c => c.chainId === 8453 && c.address && /^0x[a-fA-F0-9]{40}$/.test(c.address));
+  const baseTokens = stablecoins.filter((c: any) => c.chainId === 8453 && c.address && /^0x[a-fA-F0-9]{40}$/.test(c.address));
   
   // Process tokens in parallel for better performance
-  await Promise.all(baseTokens.map(async (coin) => {
+  await Promise.all(baseTokens.map(async (coin: any) => {
     try {
       const contract = new ethers.Contract(coin.address, ERC20_ABI, provider);
       
@@ -147,7 +146,7 @@ async function fetchIncomingPayments(merchantAddress: string) {
       
       // Process logs
       const symbol = coin.baseToken;
-      const txPromises = logs.map(async (log) => {
+      const txPromises = logs.map(async (log: any) => {
         const { transactionHash, args, blockNumber } = log;
         if (!args) return null;
         
@@ -185,7 +184,7 @@ async function fetchIncomingPayments(merchantAddress: string) {
   const result = allTxs.slice(0, 50); // Increased from 20 to 50 to show more historical transactions
   
   // Cache the results
-  setCachedTransactions(merchantAddress, result);
+  transactionCache.setCachedTransactions(merchantAddress, result);
   
   return result;
 }
@@ -194,11 +193,11 @@ async function fetchIncomingPayments(merchantAddress: string) {
 const getPaymentMethodsData = (transactions: any[]) => {
   // Count transactions per stablecoin
   const grouped: Record<string, { count: number, flag: string }> = {};
-  transactions.forEach(tx => {
+  transactions.forEach((tx: any) => {
     const symbol = tx.currency;
     if (!grouped[symbol]) {
       // Find the flag from stablecoins
-      const coin = stablecoins.find(c => c.baseToken === symbol);
+      const coin = stablecoins.find((c: any) => c.baseToken === symbol);
       grouped[symbol] = { count: 0, flag: coin?.flag || '🌐' };
     }
     grouped[symbol].count++;
@@ -241,14 +240,14 @@ const getPaymentMethodsData = (transactions: any[]) => {
 function getDailyRevenueData(transactions: any[]) {
   // Determine the most common currency symbol
   const currencyCounts: Record<string, number> = {};
-  transactions.forEach(tx => {
+  transactions.forEach((tx: any) => {
     if (tx.currency) currencyCounts[tx.currency] = (currencyCounts[tx.currency] || 0) + 1;
   });
   const mainSymbol = Object.entries(currencyCounts).sort((a, b) => b[1] - a[1])[0]?.[0] || '';
 
   // Build a map of YYYY-MM-DD to total revenue
   const dayMap: Record<string, number> = {};
-  transactions.forEach(tx => {
+  transactions.forEach((tx: any) => {
     // Defensive: ensure tx.date is valid and amount is a number
     let day = '';
     if (tx.date) {
@@ -257,7 +256,7 @@ function getDailyRevenueData(transactions: any[]) {
         day = typeof tx.date === 'string' ? tx.date.slice(0, 10) : new Date(tx.date).toISOString().slice(0, 10);
       } catch {}
     }
-    const amount = parseFloat((tx.amount || '0').toString().replace(/,/g, ''));
+    const amount = parseFloat((tx.amount || '0').toString().replace(/,/g, '')) || 0;
     if (day && !isNaN(amount)) {
       dayMap[day] = (dayMap[day] || 0) + amount;
     }
@@ -292,8 +291,8 @@ function getDailyRevenueData(transactions: any[]) {
 function getMultiStablecoinDailyRevenueData(transactions: any[]) {
   // Get all dates in the data
   const dateSet = new Set<string>();
-  const stablecoinSymbols = Array.from(new Set(transactions.map(tx => tx.currency)));
-  transactions.forEach(tx => {
+  const stablecoinSymbols = Array.from(new Set(transactions.map((tx: any) => tx.currency)));
+  transactions.forEach((tx: any) => {
     const d = tx.date.split('T')[0];
     dateSet.add(d);
   });
@@ -311,7 +310,7 @@ function getMultiStablecoinDailyRevenueData(transactions: any[]) {
   // Prepare a dataset for each stablecoin
   const datasets = stablecoinSymbols.map((symbol, index) => {
     // Find the flag from stablecoins
-    const coin = stablecoins.find(c => c.baseToken === symbol);
+    const coin = stablecoins.find((c: any) => c.baseToken === symbol);
     const flag = coin?.flag || '🌐';
     
     // Use bright colors in dark mode, dark colors in light mode
@@ -322,7 +321,7 @@ function getMultiStablecoinDailyRevenueData(transactions: any[]) {
       data: dates.map(date => {
         // Sum for this date and stablecoin
         return transactions
-          .filter(tx => tx.currency === symbol && tx.date.startsWith(date))
+          .filter((tx: any) => tx.currency === symbol && tx.date.startsWith(date))
           .reduce((sum, tx) => sum + (parseFloat((tx.amount || '0').replace(/,/g, '')) || 0), 0);
       }),
       borderColor: lineColor,
@@ -342,7 +341,7 @@ function getMultiStablecoinDailyRevenueData(transactions: any[]) {
 function getTransactionsByDayData(transactions: any[]) {
   // Group by weekday
   const dayMap: Record<string, number> = { 'Sun': 0, 'Mon': 0, 'Tue': 0, 'Wed': 0, 'Thu': 0, 'Fri': 0, 'Sat': 0 };
-  transactions.forEach(tx => {
+  transactions.forEach((tx: any) => {
     const dateObj = new Date(tx.date);
     const day = dateObj.toLocaleDateString(undefined, { weekday: 'short' });
     dayMap[day] = (dayMap[day] || 0) + 1;
@@ -485,8 +484,8 @@ export default function MerchantDashboard() {
       
       try {
         // Check if we have cached data first
-        const { getCachedTransactions } = await import('../utils/transactionCache');
-        const cachedTxs = getCachedTransactions(selectedWalletAddress);
+        const transactionCache = await import('../utils/transactionCache');
+        const cachedTxs = transactionCache.getCachedTransactions(selectedWalletAddress);
         
         // If we have cached data, show it immediately while we fetch fresh data
         if (cachedTxs && cachedTxs.length > 0 && isMounted) {
@@ -512,9 +511,9 @@ export default function MerchantDashboard() {
           
           // Only POST transactions that aren't already in DB
           // Use Promise.all to parallelize the requests
-          const newTxs = txs.filter(tx => !dbHashes.has(tx.id));
+          const newTxs = txs.filter((tx: any) => !dbHashes.has(tx.id));
           if (newTxs.length > 0) {
-            await Promise.all(newTxs.map(tx => {
+            await Promise.all(newTxs.map((tx: any) => {
               return fetch('/api/transactions', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -561,7 +560,7 @@ export default function MerchantDashboard() {
         "function symbol() view returns (string)"
       ];
       // For each supported stablecoin on Base
-      for (const coin of stablecoins.filter(c => c.chainId === 8453 && c.address && /^0x[a-fA-F0-9]{40}$/.test(c.address))) {
+      for (const coin of stablecoins.filter((c: any) => c.chainId === 8453 && c.address && /^0x[a-fA-F0-9]{40}$/.test(c.address))) {
         try {
           const contract = new ethersLib.Contract(coin.address, ERC20_ABI, provider);
           const decimals = await contract.decimals();
@@ -917,9 +916,9 @@ const fetchRealBalances = async (walletAddress: string) => {
               <div className="flex flex-col gap-1 text-2xl font-bold text-slate-900 dark:text-white">
                 {(() => {
                   const processed = processBalances(balances).processedBalances;
-                  const nonZero = processed.filter(c => parseFloat(c.balance.replace(/,/g, '')) > 0);
+                  const nonZero = processed.filter((c: any) => parseFloat(c.balance.replace(/,/g, '')) > 0);
                   if (!nonZero.length) return '0';
-                  return nonZero.map(c => (
+                  return nonZero.map((c: any) => (
                     <div key={c.symbol} className="flex items-center gap-2">
                       <span>{c.flag}</span>
                       <span className="font-semibold">{c.balance}</span>
@@ -936,11 +935,11 @@ const fetchRealBalances = async (walletAddress: string) => {
                 {(() => {
                   // Group transactions by currency
                   const grouped: Record<string, { count: number, flag: string }> = {};
-                  transactions.forEach(tx => {
+                  transactions.forEach((tx: any) => {
                     const symbol = tx.currency;
                     if (!grouped[symbol]) {
                       // Find the flag from stablecoins
-                      const coin = stablecoins.find(c => c.baseToken === symbol);
+                      const coin = stablecoins.find((c: any) => c.baseToken === symbol);
                       grouped[symbol] = { count: 0, flag: coin?.flag || '🌐' };
                     }
                     grouped[symbol].count++;
@@ -964,11 +963,11 @@ const fetchRealBalances = async (walletAddress: string) => {
                 {(() => {
                   // Group transactions by currency
                   const grouped: Record<string, { sum: number, count: number, flag: string }> = {};
-                  transactions.forEach(tx => {
+                  transactions.forEach((tx: any) => {
                     const symbol = tx.currency;
                     if (!grouped[symbol]) {
                       // Find the flag from stablecoins
-                      const coin = stablecoins.find(c => c.baseToken === symbol);
+                      const coin = stablecoins.find((c: any) => c.baseToken === symbol);
                       grouped[symbol] = { sum: 0, count: 0, flag: coin?.flag || '🌐' };
                     }
                     grouped[symbol].sum += parseFloat((tx.amount || '0').replace(/,/g, '')) || 0;
@@ -1001,9 +1000,9 @@ const fetchRealBalances = async (walletAddress: string) => {
                   // Sum revenue for this and previous month
                   let thisMonthSum = 0;
                   let prevMonthSum = 0;
-                  transactions.forEach(tx => {
+                  transactions.forEach((tx: any) => {
                     const txDate = new Date(tx.date);
-                    const amt = parseFloat((tx.amount || '0').replace(/,/g, '')) || 0;
+                    const amt = parseFloat((tx.amount || '0').toString().replace(/,/g, '')) || 0;
                     if (txDate.getFullYear() === thisYear && txDate.getMonth() === thisMonth) {
                       thisMonthSum += amt;
                     } else if (txDate.getFullYear() === prevYear && txDate.getMonth() === prevMonth) {
@@ -1024,10 +1023,10 @@ const fetchRealBalances = async (walletAddress: string) => {
               <div className="flex flex-col gap-1 text-2xl font-bold text-slate-900 dark:text-white">
                 {(() => {
                   // List payment methods (stablecoins with nonzero transactions)
-                  const usedSymbols = Array.from(new Set(transactions.map(tx => tx.currency)));
+                  const usedSymbols = Array.from(new Set(transactions.map((tx: any) => tx.currency)));
                   if (!usedSymbols.length) return 'None';
                   return usedSymbols.map(symbol => {
-                    const coin = stablecoins.find(c => c.baseToken === symbol);
+                    const coin = stablecoins.find((c: any) => c.baseToken === symbol);
                     return (
                       <div key={symbol} className="flex items-center gap-2">
                         <span>{coin?.flag || '🌐'}</span>
@@ -1045,21 +1044,21 @@ const fetchRealBalances = async (walletAddress: string) => {
             {/* Daily Revenue Chart */}
             <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
               <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-bold text-slate-800 dark:text-white">Daily Revenue</h3>
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white">Daily Revenue</h3>
                 <select 
                   className="border rounded px-2 py-1 text-sm bg-white dark:bg-slate-700 text-slate-800 dark:text-white" 
                   value={selectedCurrency} 
                   onChange={(e) => setSelectedCurrency(e.target.value)}
                 >
                   <option value="all" className="text-slate-800 dark:text-white">All Currencies</option>
-                  {stablecoins.map(coin => (
+                  {stablecoins.map((coin: any) => (
                     <option key={coin.baseToken} value={coin.baseToken} className="text-slate-800 dark:text-white">{coin.flag} {coin.baseToken}</option>
                   ))}
                 </select>
               </div>
               <div className="h-64">
                 <Line
-  data={getMultiStablecoinDailyRevenueData(selectedCurrency === 'all' ? transactions : transactions.filter(tx => tx.currency === selectedCurrency))}
+  data={getMultiStablecoinDailyRevenueData(selectedCurrency === 'all' ? transactions : transactions.filter((tx: any) => tx.currency === selectedCurrency))}
   options={{
     responsive: true,
     maintainAspectRatio: false,
@@ -1164,7 +1163,7 @@ const fetchRealBalances = async (walletAddress: string) => {
                   className="border rounded px-2 py-1 text-sm bg-white dark:bg-slate-700 text-slate-800 dark:text-white"
                 >
                   <option value="all" className="text-slate-800 dark:text-white">All Currencies</option>
-                  {stablecoins.map(coin => (
+                  {stablecoins.map((coin: any) => (
                     <option key={coin.baseToken} value={coin.baseToken} className="text-slate-800 dark:text-white">
                       {coin.flag} {coin.baseToken}
                     </option>
@@ -1173,7 +1172,7 @@ const fetchRealBalances = async (walletAddress: string) => {
               </div>
               <div className="h-64">
                 <Doughnut 
-                  data={getPaymentMethodsData(selectedCurrency === 'all' ? transactions : transactions.filter(tx => tx.currency === selectedCurrency))} 
+                  data={getPaymentMethodsData(selectedCurrency === 'all' ? transactions : transactions.filter((tx: any) => tx.currency === selectedCurrency))} 
                   options={{ 
                     responsive: true, 
                     maintainAspectRatio: false,
@@ -1202,7 +1201,7 @@ const fetchRealBalances = async (walletAddress: string) => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
             {/* Recent Transactions */}
             <div className="lg:col-span-2 bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-all duration-300 transform hover:shadow-xl">
-              <div className="p-6 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/30 dark:to-purple-900/30">
+              <div className="p-6 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-indigo-50/50 to-purple-50/50 dark:from-indigo-900/20 dark:to-purple-900/20">
                 <div className="flex justify-between items-center">
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
                     <svg className="w-5 h-5 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -1216,7 +1215,7 @@ const fetchRealBalances = async (walletAddress: string) => {
                     className="border rounded px-2 py-1 text-sm bg-white dark:bg-slate-700 text-slate-800 dark:text-white"
                   >
                     <option value="all" className="text-slate-800 dark:text-white">All Currencies</option>
-                    {stablecoins.map(coin => (
+                    {stablecoins.map((coin: any) => (
                       <option key={coin.baseToken} value={coin.baseToken} className="text-slate-800 dark:text-white">
                         {coin.flag} {coin.baseToken}
                       </option>
@@ -1268,7 +1267,7 @@ const fetchRealBalances = async (walletAddress: string) => {
                           </td>
                         </tr>
                       ))
-                    ) : (selectedCurrency === 'all' ? transactions : transactions.filter(tx => tx.currency === selectedCurrency)).length === 0 ? (
+                    ) : (selectedCurrency === 'all' ? transactions : transactions.filter((tx: any) => tx.currency === selectedCurrency)).length === 0 ? (
                       <tr>
                         <td colSpan={5} className="px-6 py-10 text-center text-sm text-gray-500 dark:text-gray-400">
                           <div className="flex flex-col items-center justify-center space-y-3">
@@ -1286,7 +1285,7 @@ const fetchRealBalances = async (walletAddress: string) => {
                         </td>
                       </tr>
                     ) : (
-                      (selectedCurrency === 'all' ? transactions : transactions.filter(tx => tx.currency === selectedCurrency)).map((tx, index) => (
+                      (selectedCurrency === 'all' ? transactions : transactions.filter((tx: any) => tx.currency === selectedCurrency)).map((tx, index) => (
                         <tr 
                           key={tx.id} 
                           className={`hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-colors duration-150 ${index % 2 === 0 ? 'bg-white dark:bg-gray-800' : 'bg-slate-50 dark:bg-gray-750'}`}
@@ -1316,7 +1315,7 @@ const fetchRealBalances = async (walletAddress: string) => {
                             >
                               <span className="inline-block w-6 h-6 rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-300 mr-2 flex items-center justify-center text-xs">
                                 <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0 9 9 0 0118 0z" />
                                 </svg>
                               </span>
                               {tx.senderShort}
@@ -1400,7 +1399,7 @@ const fetchRealBalances = async (walletAddress: string) => {
                       </tr>
                     </thead>
                     <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-                      {processedBalances.map((coin, index) => {
+                      {processedBalances.map((coin: any, index: any) => {
                         const balanceNum = parseFloat(String(coin.balance).replace(/,/g, ''));
                         const hasBalance = balanceNum > 0;
                         
