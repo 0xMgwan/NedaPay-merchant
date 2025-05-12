@@ -1,4 +1,4 @@
-# NEDA Pay Merchant Portal Dashboard
+# NEDA Pay 
 
 A robust, multi-chain merchant dashboard for the NEDA Pay ecosystem. Built with Next.js, React, ethers.js, wagmi, and Coinbase OnchainKit, it allows merchants to view real-time balances, connect wallets, and manage stablecoins across supported EVM networks.
 
