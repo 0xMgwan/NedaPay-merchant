@@ -1,5 +1,5 @@
 'use client';
-// Removed force-dynamic to prevent unnecessary reloading
+export const dynamic = "force-dynamic";
 
 import React, { useState, useEffect, useRef, Suspense } from 'react';
 import Footer from './components/Footer';
@@ -48,14 +48,9 @@ function HomeContent() {
             // Listen for chain changes
             window.ethereum.on('chainChanged', (chainId: string) => {
               console.log('Chain changed to:', chainId);
-              // Prevent the default page reload behavior
-              // Instead, just update our state if needed
-              const chainIdNum = parseInt(chainId, 16);
+              // Instead of reloading, we'll just update the state
+              // This prevents unnecessary page reloads
               // You can add chain-specific logic here if needed
-              // For example, check if we're on Base Mainnet (chainId 8453)
-              const isOnBase = chainIdNum === 8453;
-              // Update UI without reloading
-              document.dispatchEvent(new CustomEvent('chainChanged', { detail: { chainId: chainIdNum, isOnBase } }));
             });
           } catch (error) {
             console.error('Error checking wallet connection:', error);
@@ -157,6 +152,10 @@ function HomeContent() {
               <div className="flex items-center bg-white/80 dark:bg-blue-900/30 px-4 py-3 rounded-xl shadow-md border border-blue-50 dark:border-blue-800">
                 <span className="text-2xl mr-3">🔒</span>
                 <span className="font-medium">Secure Payments</span>
+              </div>
+              <div className="flex items-center bg-green-100/80 dark:bg-green-900/30 px-4 py-3 rounded-xl shadow-md border border-green-100 dark:border-green-800 animate-pulse-slow">
+                <span className="text-2xl mr-3">💰</span>
+                <span className="font-bold text-green-700 dark:text-green-300">Zero Fees!</span>
               </div>
             </div>
             
@@ -412,9 +411,14 @@ function HomeContent() {
                       <span className="relative z-10">3.</span>
                       <div className="absolute inset-0 rounded-full bg-green-400 dark:bg-green-500 blur-sm opacity-50 group-hover:opacity-70 transition-opacity"></div>
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                      Receive Payments
-                    </h3>
+                    <div className="flex items-center">
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                        Receive Payments
+                      </h3>
+                      <div className="ml-2 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-base font-bold shadow-md transform hover:scale-110 transition-all duration-300 border border-green-300 dark:border-green-700">
+                        ✓
+                      </div>
+                    </div>
                   </div>
                   <p className="text-gray-600 dark:text-gray-300 mb-4">
                     Customers pay using their NEDA Pay app and you receive stablecoins instantly
@@ -430,12 +434,12 @@ function HomeContent() {
                         <div className="w-16 h-8 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center text-green-800 dark:text-green-200 text-xs font-bold">
                           +100 USDC
                         </div>
-                        <div className="absolute -right-2 -top-2 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-xs animate-pulse">
+                      </div>
+                      <div className="mt-2 text-xs flex items-center justify-center">
+                        <span className="text-gray-500 dark:text-gray-400">Transaction confirmed</span>
+                        <div className="ml-1.5 w-4 h-4 bg-green-500 rounded-full flex items-center justify-center text-white text-xs font-bold shadow-sm transform hover:scale-110 transition-all duration-300 border border-green-300 dark:border-green-700">
                           ✓
                         </div>
-                      </div>
-                      <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-                        Transaction confirmed
                       </div>
                     </div>
                   </div>
@@ -580,12 +584,21 @@ function HomeContent() {
 </div>
 
 {/* CTA Section */}
-<div className="relative overflow-hidden rounded-3xl mb-12 border-2 border-blue-300/50 dark:border-blue-600/50 shadow-2xl">
-  <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 dark:from-blue-700 dark:via-indigo-700 dark:to-purple-700"></div>
-  <div className="absolute inset-0 bg-blue-600/20 dark:bg-blue-900/30 backdrop-blur-sm"></div>
-  <div className="absolute -top-24 -right-24 w-64 h-64 bg-indigo-400/30 dark:bg-indigo-600/30 rounded-full blur-3xl animate-pulse-slow"></div>
-  <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-blue-400/30 dark:bg-blue-600/30 rounded-full blur-3xl animate-pulse-slow"></div>
-
+<div className="relative overflow-hidden rounded-3xl mb-12 shadow-2xl transform hover:scale-[1.01] transition-all duration-300">
+  {/* Enhanced gradient background with more vibrant colors - no border */}
+  <div className="absolute inset-0 bg-gradient-to-br from-blue-500 via-indigo-600 to-purple-700 dark:from-blue-600 dark:via-indigo-700 dark:to-purple-800 opacity-90"></div>
+  
+  {/* Improved backdrop blur with a subtle pattern overlay */}
+  <div className="absolute inset-0 bg-blue-600/10 dark:bg-blue-900/20 backdrop-blur-sm bg-opacity-80 mix-blend-overlay"></div>
+  
+  {/* Decorative elements - larger, more vibrant, and with better positioning */}
+  <div className="absolute -top-20 -right-20 w-80 h-80 bg-indigo-400/40 dark:bg-indigo-500/40 rounded-full blur-3xl animate-pulse-slow"></div>
+  <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-blue-400/40 dark:bg-blue-500/40 rounded-full blur-3xl animate-pulse-slow"></div>
+  
+  {/* Additional decorative elements for more visual interest */}
+  <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-purple-400/30 dark:bg-purple-500/30 rounded-full blur-2xl animate-float"></div>
+  <div className="absolute bottom-1/3 right-1/3 w-24 h-24 bg-blue-300/30 dark:bg-blue-400/30 rounded-full blur-xl animate-float" style={{animationDelay: '1s'}}></div>
+  
   <div className="relative z-10 px-8 py-16 text-center text-white">
     <div className="mb-2 flex justify-center">
       <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm text-white text-sm font-medium">
