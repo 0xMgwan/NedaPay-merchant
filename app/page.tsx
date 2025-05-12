@@ -134,11 +134,11 @@ function HomeContent() {
           50% { opacity: 0.8; }
         }
         
-        /* Mobile-specific styles for stablecoins */
+        /* Mobile-specific styles for stablecoins and hero section */
         @media (max-width: 640px) {
           .stablecoin-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr) !important;
+            grid-template-columns: repeat(4, 1fr) !important;
             gap: 4px !important;
           }
           .stablecoin-item {
@@ -159,6 +159,14 @@ function HomeContent() {
             font-size: 0.55rem !important;
             text-align: center !important;
             line-height: 1 !important;
+          }
+          .hero-feature-item {
+            padding: 8px !important;
+            font-size: 0.85rem !important;
+          }
+          .hero-feature-icon {
+            font-size: 1.25rem !important;
+            margin-right: 8px !important;
           }
         }
         
@@ -189,7 +197,7 @@ function HomeContent() {
       
       <div className="container mx-auto max-w-7xl px-4 py-8 md:py-12">
         {/* Hero Section */}
-        <div className="flex flex-col-reverse lg:flex-row items-center justify-between mb-16 gap-8 p-6 bg-white/20 dark:bg-blue-900/10 rounded-2xl border border-blue-100 dark:border-blue-800 shadow-lg">
+        <div className="flex flex-col-reverse lg:flex-row items-center justify-between mb-16 gap-4 sm:gap-8 p-4 sm:p-6 bg-white/20 dark:bg-blue-900/10 rounded-2xl border border-blue-100 dark:border-blue-800 shadow-lg">
           <div className="w-full lg:w-1/2 text-left">
             <h1 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent dark:from-blue-400 dark:to-indigo-300 leading-tight">
               The Future of Merchant Payments is Here
@@ -198,18 +206,22 @@ function HomeContent() {
               Accept local stablecoins for your business, manage payments, and swap between currencies instantly with ease
             </p>
             
-            <div className="flex flex-wrap gap-4 mb-8">
-              <div className="flex items-center bg-white/80 dark:bg-blue-900/30 px-4 py-3 rounded-xl shadow-md border border-blue-50 dark:border-blue-800">
-                <span className="text-2xl mr-3">🌍</span>
+            <div className="flex flex-wrap gap-2 sm:gap-4 mb-6 sm:mb-8">
+              <div className="hero-feature-item flex items-center bg-white/80 dark:bg-blue-900/30 px-3 sm:px-4 py-2 sm:py-3 rounded-xl shadow-md border border-blue-50 dark:border-blue-800">
+                <span className="hero-feature-icon text-xl sm:text-2xl mr-2 sm:mr-3">🌍</span>
                 <span className="font-medium">Global Stablecoins</span>
               </div>
-              <div className="flex items-center bg-white/80 dark:bg-blue-900/30 px-4 py-3 rounded-xl shadow-md border border-blue-50 dark:border-blue-800">
-                <span className="text-2xl mr-3">⚡</span>
+              <div className="hero-feature-item flex items-center bg-white/80 dark:bg-blue-900/30 px-3 sm:px-4 py-2 sm:py-3 rounded-xl shadow-md border border-blue-50 dark:border-blue-800">
+                <span className="hero-feature-icon text-xl sm:text-2xl mr-2 sm:mr-3">⚡</span>
                 <span className="font-medium">Instant Settlement</span>
               </div>
-              <div className="flex items-center bg-white/80 dark:bg-blue-900/30 px-4 py-3 rounded-xl shadow-md border border-blue-50 dark:border-blue-800">
-                <span className="text-2xl mr-3">🔒</span>
+              <div className="hero-feature-item flex items-center bg-white/80 dark:bg-blue-900/30 px-3 sm:px-4 py-2 sm:py-3 rounded-xl shadow-md border border-blue-50 dark:border-blue-800">
+                <span className="hero-feature-icon text-xl sm:text-2xl mr-2 sm:mr-3">🔒</span>
                 <span className="font-medium">Secure Payments</span>
+              </div>
+              <div className="hero-feature-item flex items-center bg-white/80 dark:bg-blue-900/30 px-3 sm:px-4 py-2 sm:py-3 rounded-xl shadow-md border border-blue-50 dark:border-blue-800">
+                <span className="hero-feature-icon text-xl sm:text-2xl mr-2 sm:mr-3">💲</span>
+                <span className="font-medium">Zero Fees</span>
               </div>
             </div>
             
@@ -239,7 +251,7 @@ function HomeContent() {
                     alert('Please install a compatible wallet like MetaMask or Coinbase Wallet');
                   }
                 }}
-                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-4 px-8 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center border-2 border-blue-400/30"
+                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center border-2 border-blue-400/30 w-full sm:w-auto justify-center"
               >
                 <span className="mr-2">Connect Wallet</span>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -247,7 +259,7 @@ function HomeContent() {
                 </svg>
               </button>
             ) : (
-              <a href="/dashboard" className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-4 px-8 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center border-2 border-blue-400/30">
+              <a href="/dashboard" className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center border-2 border-blue-400/30 w-full sm:w-auto justify-center">
                 <span className="mr-2">Go to Dashboard</span>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
@@ -257,9 +269,9 @@ function HomeContent() {
           </div>
           
           <div className="w-full lg:w-1/2 relative">
-            <div className="relative bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900 p-6 rounded-2xl shadow-2xl overflow-hidden border border-blue-200 dark:border-blue-700">
+            <div className="relative bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900 p-3 sm:p-6 rounded-2xl shadow-2xl overflow-hidden border border-blue-200 dark:border-blue-700">
               <div className="absolute top-0 left-0 w-full h-full bg-white/20 dark:bg-blue-500/10 backdrop-blur-sm rounded-2xl"></div>
-              <div className="stablecoin-grid relative z-10 grid grid-cols-3 gap-3">
+              <div className="stablecoin-grid relative z-10 grid grid-cols-3 gap-3 max-h-[400px] overflow-y-auto">
                 {stablecoins.map((coin: any, index: number) => (
                   <div key={index} className={`stablecoin-item bg-white/80 dark:bg-gray-800/80 p-3 rounded-xl shadow-lg border border-blue-200 dark:border-blue-700 flex flex-col items-center justify-center animate-float`} style={{animationDelay: `${index * 0.1}s`}}>
                     <div className="stablecoin-flag text-2xl mb-1">{coin.flag}</div>
