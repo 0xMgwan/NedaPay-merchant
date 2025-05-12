@@ -1,0 +1,100 @@
+'use client';
+export const dynamic = "force-dynamic";
+
+import React, { useState, useEffect, useRef, Suspense } from 'react';
+import Footer from './components/Footer.jsx';
+// Using regular anchor tags instead of next/link and next/navigation
+import Header from './components/Header.jsx';
+import { stablecoins } from './data/stablecoins.js';
+
+// Client component with search params
+function HomeContent() {
+  const [mounted, setMounted] = useState(false);
+  const [showWalletPrompt, setShowWalletPrompt] = useState(false);
+  
+  // Initialize with default values
+  const [address, setAddress] = useState<string | undefined>('');
+  const [isConnected, setIsConnected] = useState(false);
+  // Using window.location for navigation instead of useRouter
+  const prevConnected = useRef(isConnected);
+  
+  // Dynamic import of wagmi hooks
+  useEffect(() => {
+    const loadWagmi = async () => {
+      try {
+        // Dynamic import of wagmi
+        const wagmi = await import('wagmi');
+        const account = wagmi.useAccount();
+        if (account.address) {
+          setAddress(account.address);
+        }
+        setIsConnected(account.isConnected);
+      } catch (error) {
+        console.error('Error loading wagmi:', error);
+      }
+    };
+    
+    loadWagmi();
+  }, []);
+  
+  useEffect(() => {
+    setMounted(true);
+    // Check if redirected from a protected route
+    const urlParams = new URLSearchParams(window.location.search);
+    const walletRequired = urlParams.get('walletRequired');
+    if (walletRequired === 'true') {
+      setShowWalletPrompt(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    // Only redirect if the wallet just became connected
+    // Do NOT redirect if on /payment-link
+    if (
+      mounted &&
+      isConnected &&
+      address &&
+      !prevConnected.current &&
+      window.location.pathname !== '/payment-link' &&
+      !window.location.pathname.startsWith('/invoice')
+    ) {
+      console.log('[DEBUG] Redirecting to /dashboard from HomeContent. Current path:', window.location.pathname);
+      window.location.href = '/dashboard';
+    }
+    prevConnected.current = isConnected;
+  }, [mounted, isConnected, address]);
+
+  if (!mounted) return null;
+  
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-blue-50 dark:from-gray-900 dark:via-blue-950 dark:to-gray-900 dark:text-white" style={{"--tw-text-opacity": "1"} as React.CSSProperties}>
+      <style jsx global>{`
+        .dark h2, .dark h3, .dark p, .dark span, .dark summary, .dark div {
+          color: white !important;
+        }
+        .dark .text-gray-300, .dark .text-gray-500, .dark .text-gray-600, .dark .text-gray-700 {
+          color: white !important;
+        }
+        .animate-float {
+          animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+          0% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+          100% { transform: translateY(0px); }
+        }
+        .animate-pulse-slow {
+          animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.8; }
+        }
+      `}</style>
+      <Header />
+      
+      <div className="container mx-auto max-w-7xl px-4 py-8 md:py-12">
+        {/* Hero Section */}
+        <div className="flex flex-col-reverse lg:flex-row items-center justify-between mb-16 gap-8 p-6 bg-white/20 dark:bg-blue-900/10 rounded-2xl border border-blue-100 dark:border-blue-800 shadow-lg">
+          <div className="w-full lg:w-1/2 text-left">
+            <h1 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent dark:from-blue-400 dark:to-indigo-300 leading-tight">

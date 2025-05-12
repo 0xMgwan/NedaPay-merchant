@@ -1,0 +1,18 @@
+/* App.css - Created to fix build error */
+/* This file is being imported somewhere in the build process */
+
+/* Base styles */
+:root {
+  --primary-color: #2563eb;
+  --primary-dark: #1d4ed8;
+  --background-light: #f5f7fa;
+  --text-color: #333;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Manrope', system-ui, 'Segoe UI', 'Roboto', Arial, sans-serif;
+}
+
+/* Add any additional styles that might be needed */

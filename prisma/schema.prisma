@@ -1,0 +1,36 @@
+// Prisma schema for NEDA Pay Merchant Portal
+// Multi-environment database configuration
+
+datasource db {
+  provider     = env("DATABASE_PROVIDER")
+  url          = env("DATABASE_URL")
+  relationMode = env("DATABASE_RELATION_MODE")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Transaction {
+  id         String   @id @default(uuid())
+  merchantId String
+  wallet     String
+  amount     Float
+  currency   String
+  status     String
+  txHash     String
+  createdAt  DateTime @default(now())
+}
+
+model PaymentLink {
+  id           String   @id @default(uuid())
+  merchantId   String
+  url          String   @unique
+  amount       Float
+  currency     String
+  description  String?
+  status       String   // e.g. 'active', 'redeemed', 'expired'
+  createdAt    DateTime @default(now())
+  redeemedAt   DateTime?
+}
+

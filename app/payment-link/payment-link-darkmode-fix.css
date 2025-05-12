@@ -1,0 +1,12 @@
+:root.dark .force-white-text,
+:root[data-theme="dark"] .force-white-text {
+  color: #fff !important;
+}
+:root.dark .force-white-text input,
+:root[data-theme="dark"] .force-white-text input {
+  color: #fff !important;
+}
+:root.dark .force-white-text .force-white,
+:root[data-theme="dark"] .force-white-text .force-white {
+  color: #fff !important;
+}

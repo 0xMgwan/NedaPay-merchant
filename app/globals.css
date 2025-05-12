@@ -1,0 +1,373 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Light mode: White background with black text */
+  --background: #ffffff; /* White */
+  --foreground: #000000; /* Black */
+  --primary: #3b82f6; /* Blue-500 */
+  --primary-light: #93c5fd; /* Blue-300 */
+  --primary-dark: #1d4ed8; /* Blue-700 */
+  --accent: #60a5fa; /* Blue-400 */
+  --accent-light: #dbeafe; /* Blue-50 */
+  --accent-dark: #2563eb; /* Blue-600 */
+  --input-bg: #f8fafc; /* Very light gray */
+  --input-border: #e2e8f0; /* Slate-200 */
+  --input-text: #000000; /* Black */
+  --input-placeholder: #94a3b8; /* Slate-400 */
+  --card-bg: #ffffff; /* White */
+  --card-text: #000000; /* Black */
+  --scrollbar-track: #f1f5f9; /* Light gray */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark mode: Black background with white text */
+    --background: #000000; /* Black */
+    --foreground: #ffffff; /* White */
+    --primary: #3b82f6; /* Blue-500 */
+    --primary-light: #1d4ed8; /* Blue-700 */
+    --primary-dark: #93c5fd; /* Blue-300 */
+    --accent: #2563eb; /* Blue-600 */
+    --accent-light: #1e3a8a; /* Blue-900 */
+    --accent-dark: #60a5fa; /* Blue-400 */
+    --input-bg: #1e1e1e; /* Dark gray */
+    --input-border: #3f3f46; /* Zinc-700 */
+    --input-text: #ffffff; /* White */
+    --input-placeholder: #94a3b8; /* Slate-400 */
+    --card-bg: #121212; /* Very dark gray */
+    --card-text: #ffffff; /* White */
+    --scrollbar-track: #1e1e1e; /* Dark gray */
+  }
+  
+  /* Fix for dark mode select options */
+  select option {
+    background-color: #1e293b; /* slate-800 */
+    color: white;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background-color: white !important;
+  color: black !important;
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  letter-spacing: 0.01em;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.dark body {
+  background-color: black !important;
+  color: white !important;
+}
+
+html {
+  background-color: white !important;
+}
+
+.dark html {
+  background-color: black !important;
+}
+
+/* Futuristic Glassmorphism Cards */
+@media (max-width: 640px) {
+  .glass-card, .card, .dashboard-card {
+    padding: 1.2rem 0.7rem !important;
+    font-size: 0.97rem;
+  }
+  .neon-glow {
+    box-shadow: 0 0 8px 1px var(--primary), 0 0 18px 4px var(--accent-light);
+  }
+}
+.glass-card, .card, .dashboard-card {
+  position: relative;
+
+  background: var(--glass);
+  box-shadow: var(--card-glow);
+  border: 1.5px solid var(--primary-light);
+  border-radius: 1.25rem;
+  backdrop-filter: blur(18px) saturate(140%);
+  transition: box-shadow 0.2s;
+}
+.glass-card:hover, .card:hover, .dashboard-card:hover {
+  box-shadow: 0 0 16px 4px var(--primary), 0 4px 32px 0 var(--accent);
+}
+
+/* Neon Buttons */
+.btn, .button, button {
+  background: linear-gradient(90deg, var(--primary), var(--accent) 70%);
+  color: #fff;
+  border: none;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 12px 0 var(--primary-light);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 0.75em 2em;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+}
+.btn:hover, .button:hover, button:hover {
+  background: linear-gradient(90deg, var(--accent), var(--primary) 70%);
+  box-shadow: 0 0 16px 4px var(--accent-light);
+  transform: translateY(-2px) scale(1.03);
+}
+
+/* Futuristic Inputs */
+input, select, textarea {
+  background: #f8fafc; /* Light gray for light mode */
+  border: 1.5px solid #e2e8f0; /* Light border for light mode */
+  color: black !important;
+  border-radius: 0.7rem;
+  padding: 0.7em 1em;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dark input, .dark select, .dark textarea {
+  background: #1e1e1e; /* Dark gray for dark mode */
+  border: 1.5px solid #3f3f46; /* Dark border for dark mode */
+  color: white !important;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--primary-light);
+}
+
+/* Fix for placeholder text */
+input::placeholder, textarea::placeholder, select::placeholder {
+  color: var(--input-placeholder) !important;
+  opacity: 1;
+}
+
+/* Fix for autofill background in Chrome */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--input-text);
+  -webkit-box-shadow: 0 0 0px 1000px var(--input-bg) inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  background: var(--scrollbar-track);
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, var(--accent), var(--primary));
+}
+
+/* Neon Glow Text */
+.glow-text {
+  text-shadow: 0 0 5px var(--primary), 0 0 15px var(--accent-light);
+}
+
+/* Ensure text visibility in both modes */
+.dark .text-gray-900,
+.dark .text-slate-900,
+.dark .text-black,
+.dark .text-slate-800 {
+  color: white !important;
+}
+
+.dark .text-gray-700,
+.dark .text-slate-700 {
+  color: white !important;
+}
+
+/* Target only specific landing page elements in dark mode */
+.dark #how-it-works h2,
+.dark #how-it-works p,
+.dark #how-it-works h3,
+.dark #faq h2,
+.dark #faq summary,
+.dark #faq div,
+.dark .text-on-light,
+.dark .gradient-text {
+  color: white !important;
+}
+
+/* Specific rules for landing page feature sections */
+.dark .bg-white h2,
+.dark .bg-white p,
+.dark .bg-white span,
+.dark .dark\:bg-gray-800 h2,
+.dark .dark\:bg-gray-800 p,
+.dark .dark\:bg-gray-800 span,
+.dark .text-gray-500,
+.dark .text-gray-600,
+.dark .text-gray-700 {
+  color: white !important;
+}
+
+/* Force all text in headers to be visible in dark mode */
+.dark header *,
+.dark nav * {
+  color: white !important;
+}
+
+/* Card styling for both modes */
+.bg-white {
+  background-color: white !important;
+  color: black !important;
+}
+
+.dark .bg-white {
+  background-color: #121212 !important;
+  color: white !important;
+}
+
+/* Chart text visibility */
+.dark canvas,
+.dark .chartjs-render-monitor,
+.dark [class*="chart-"] {
+  color: var(--foreground) !important;
+}
+
+.dark canvas text,
+.dark svg text {
+  fill: var(--foreground) !important;
+  color: var(--foreground) !important;
+}
+
+/* Ensure form elements are visible */
+.dark input,
+.dark select,
+.dark textarea {
+  background-color: var(--input-bg);
+  color: var(--input-text) !important;
+  border-color: var(--input-border);
+}
+
+/* Ensure table text is visible */
+.dark table {
+  color: var(--foreground) !important;
+}
+
+.dark th,
+.dark td {
+  color: var(--foreground) !important;
+}
+
+/* Gradient Text */
+.gradient-text {
+  background-image: linear-gradient(to right, var(--primary-dark), var(--primary));
+  background-clip: text;
+  color: transparent;
+}
+
+/* Futuristic UI Elements */
+.glass-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 1rem;
+}
+
+.dark .glass-card {
+  background: rgba(15, 23, 42, 0.3);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+@layer utilities {
+  .neon-glow {
+    box-shadow: 0 0 12px 2px var(--primary), 0 0 32px 8px var(--accent-light), 0 1.5px 12px 0 var(--accent);
+    transition: box-shadow 0.2s;
+  }
+  .drop-shadow-neon {
+    text-shadow: 0 0 8px var(--primary), 0 0 16px var(--accent-light), 0 0 2px #fff;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .text-on-light {
+    color: #171717 !important; /* Dark text for light backgrounds */
+  }
+  
+  .text-on-dark {
+    color: #f8fafc !important; /* Light text for dark backgrounds */
+  }
+  
+  /* Dashboard welcome message animations */
+  .animate-fadeIn {
+    animation: fadeIn 0.8s ease-in-out forwards;
+  }
+  
+  .animation-delay-200 {
+    animation-delay: 0.2s;
+  }
+  
+  .animation-delay-300 {
+    animation-delay: 0.3s;
+  }
+  
+  .hover\:scale-102:hover {
+    transform: scale(1.02);
+  }
+}
+
+/* Animation keyframes */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fix for white-on-white text issues */
+.bg-white {
+  color: #171717 !important;
+}
+
+.bg-white h1, .bg-white h2, .bg-white h3, .bg-white h4, .bg-white h5, .bg-white h6 {
+  color: #111827 !important;
+}
+
+.bg-white p, .bg-white span, .bg-white div {
+  color: #374151 !important;
+}
+
+/* Fix for specific dashboard elements */
+.bg-white .text-sm,
+.bg-white .text-xl,
+.bg-white .text-2xl,
+.bg-white .font-semibold,
+.bg-white .font-bold {
+  color: #111827 !important;
+}
+
+/* Fix for Quick Actions */
+.bg-gray-100 h3,
+.bg-blue-50 h3,
+.bg-green-50 h3,
+.bg-purple-50 h3 {
+  color: #111827 !important;
+}
+
+.bg-gray-100 p,
+.bg-blue-50 p,
+.bg-green-50 p,
+.bg-purple-50 p {
+  color: #374151 !important;
+}
+
+/* Dark mode overrides */
+.dark .bg-white h1, .dark .bg-white h2, .dark .bg-white h3, .dark .bg-white h4, .dark .bg-white h5, .dark .bg-white h6,
+.dark .bg-white p, .dark .bg-white span, .dark .bg-white div,
+.dark .bg-gray-800 h1, .dark .bg-gray-800 h2, .dark .bg-gray-800 h3, .dark .bg-gray-800 h4, .dark .bg-gray-800 h5, .dark .bg-gray-800 h6,
+.dark .bg-gray-800 p, .dark .bg-gray-800 span, .dark .bg-gray-800 div {
+  color: #f3f4f6 !important;
+}

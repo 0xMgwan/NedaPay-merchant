@@ -1,0 +1,25 @@
+# Production settings for Next.js with static export
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[[plugins]]
+  package = "@netlify/plugin-functions-install-core"
+
+# Environment variables
+[build.environment]
+  NETLIFY = "true"
+  NODE_VERSION = "18"
+  NPM_FLAGS = "--legacy-peer-deps"
+  NEXT_TELEMETRY_DISABLED = "1"
+
+[functions]
+  included_files = ["node_modules/.prisma/client/**"]
+  node_bundler = "esbuild"
+
+# Static export mode doesn't need the Next.js plugin
+
