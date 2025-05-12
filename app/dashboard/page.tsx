@@ -788,21 +788,7 @@ const fetchRealBalances = async (walletAddress: string) => {
       <Toaster position="top-right" />
       <div className="flex flex-col min-h-screen bg-gradient-to-br from-blue-50 to-white dark:bg-gray-900 dark:text-white">
       <Header />
-      {/* Wallet Switcher */}
-      <div className="flex gap-4 mb-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <button
-          className={`px-4 py-2 rounded-lg border font-semibold ${selectedWalletType === 'eoa' ? 'bg-blue-600 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200'}`}
-          onClick={() => setSelectedWalletType('eoa')}
-        >
-          EOA Wallet
-        </button>
-        <button
-          className={`px-4 py-2 rounded-lg border font-semibold ${selectedWalletType === 'smart' ? 'bg-blue-600 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200'}`}
-          onClick={() => setSelectedWalletType('smart')}
-        >
-          Smart Wallet
-        </button>
-      </div>
+      {/* Removed wallet switcher section */}
       <div className="my-4">
         <button onClick={() => window.history.back()} className="flex items-center gap-2 px-3 py-1 border border-gray-300 dark:border-gray-700 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-sm font-medium">
           <span aria-hidden="true">←</span> Back
@@ -889,60 +875,37 @@ const fetchRealBalances = async (walletAddress: string) => {
             </div>
           </div>
 
-          {/* Smart Wallet Info */}
+          {/* Wallet Connection Info */}
           <div className="bg-primary dark:bg-primary-dark border border-primary-light dark:border-blue-800 rounded-xl p-6 mb-8">
   <h2 className="text-xl font-semibold text-white mb-2">
-    {selectedWalletType === 'smart' ? 'Smart Wallet Connected' : 'EOA Wallet Connected'}
+    Wallet Connected
   </h2>
   <p className="text-white mb-4">
-    {selectedWalletType === 'smart'
-      ? "You're using a smart wallet for enhanced security and lower fees"
-      : "You're using your externally owned account (EOA) wallet"}
+    Your wallet is connected and ready to use
   </p>
   <div className="flex items-center space-x-2">
     <div className="text-sm font-medium text-white">
-      {selectedWalletType === 'smart' ? 'Smart Wallet Address:' : 'EOA Wallet Address:'}
+      Wallet Address:
     </div>
     <div className="text-sm text-white/90">
-      {selectedWalletType === 'smart' && smartWalletLoading && (
-  <span>Loading smart wallet address...</span>
-)}
-{selectedWalletType === 'smart' && !smartWalletLoading && (!smartWalletAddress || smartWalletAddress === address) && (
-  <span className="text-yellow-200">Smart wallet address not found. Please create or connect your smart wallet.</span>
-)}
-{selectedWalletType === 'smart' && !smartWalletLoading && smartWalletAddress && smartWalletAddress !== address && (
-  <span className="inline-flex items-center gap-2">
-    {`${smartWalletAddress.substring(0, 10)}...${smartWalletAddress.substring(smartWalletAddress.length - 8)}`}
-    <button
-      className="ml-1 px-2 py-0.5 rounded bg-slate-600 text-xs text-white hover:bg-slate-800 focus:outline-none"
-      onClick={() => {
-        navigator.clipboard.writeText(smartWalletAddress);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 1200);
-      }}
-      title="Copy address"
-    >
-      {copied ? 'Copied!' : 'Copy'}
-    </button>
-  </span>
-)}
-{selectedWalletType !== 'smart' && selectedWalletAddress && (
-  <span className="inline-flex items-center gap-2">
-    {`${selectedWalletAddress.substring(0, 10)}...${selectedWalletAddress.substring(selectedWalletAddress.length - 8)}`}
-    <button
-      className="ml-1 px-2 py-0.5 rounded bg-slate-600 text-xs text-white hover:bg-slate-800 focus:outline-none"
-      onClick={() => {
-        navigator.clipboard.writeText(selectedWalletAddress);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 1200);
-      }}
-      title="Copy address"
-    >
-      {copied ? 'Copied!' : 'Copy'}
-    </button>
-  </span>
-)}
-{selectedWalletType !== 'smart' && !selectedWalletAddress && 'Not Connected'}
+      {selectedWalletAddress ? (
+        <span className="inline-flex items-center gap-2">
+          {`${selectedWalletAddress.substring(0, 10)}...${selectedWalletAddress.substring(selectedWalletAddress.length - 8)}`}
+          <button
+            className="ml-1 px-2 py-0.5 rounded bg-slate-600 text-xs text-white hover:bg-slate-800 focus:outline-none"
+            onClick={() => {
+              navigator.clipboard.writeText(selectedWalletAddress);
+              setCopied(true);
+              setTimeout(() => setCopied(false), 1200);
+            }}
+            title="Copy address"
+          >
+            {copied ? 'Copied!' : 'Copy'}
+          </button>
+        </span>
+      ) : (
+        'Not Connected'
+      )}
     </div>
   </div>
 </div>
