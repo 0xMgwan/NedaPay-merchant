@@ -1,6 +1,6 @@
 # NEDA Pay 
 
-A robust, multi-chain merchant dashboard for the NEDA Pay ecosystem that enables businesses, merchants and creators to accept all local stablecoins, generate payment links, swap to their preferred currency and keep track of analytics and performance. Built with Next.js, React, ethers.js, wagmi, and Coinbase OnchainKit, it allows merchants to view real-time balances, connect wallets, swap and manage stablecoins across supported EVM networks.
+A robust, seamless payment platform that enables businesses, merchants and creators to accept all local stablecoins on Base, generate payment links, swap to their preferred currency and keep track of analytics and performance. Built with Next.js, React, ethers.js, wagmi, and Coinbase OnchainKit, it allows merchants to view real-time balances, connect wallets, swap and manage stablecoins across supported EVM networks as well as keep track of growth & performance.
 
 ---
 
@@ -52,8 +52,8 @@ A robust, multi-chain merchant dashboard for the NEDA Pay ecosystem that enables
 
 - The dashboard integrates directly with the Aerodrome DEX for token swaps.
 - Supports both stable and volatile pools, using the official Aerodrome router and factory.
-- Swap modal fetches quotes and executes swaps with proper decimals for every supported stablecoin.
-- Output estimates are always formatted for human readability, based on each token's decimals.
+- Swap modal fetches quotes and executes swaps for every supported stablecoin.
+- All markets for local stablecoins supported based on Aerodrome markets
 
 ---
 
@@ -143,6 +143,12 @@ Visit [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
+## Transactions on Mainnet
+- Payment Link transaction for cNGN (https://basescan.org/tx/0xd1cf30ba14b6fa2a4cb37072dea2bd1e1742a27bbb79f5c22e499c0637fb2b14)
+- Swap transaction for USDC to ZARP (https://basescan.org/tx/0xb09e22f3cd72e1778241ef588d8ce3bbb4e022310e561a41503da3adaa19e367)
+
+---
+  
 ## Error Handling
 - Token contract errors (e.g., failed `decimals()` or `balanceOf`) are handled gracefully.
 - UI shows a warning icon and tooltip for affected tokens.
@@ -202,4 +208,4 @@ MIT
 ---
 
 ## Contact
-For support or questions, contact the NEDA Pay team at [https://nedapay.app](https://neda-pay.vercel.app/)
+For support or questions, contact the NEDA Pay team at [https://neda-pay.vercel.app/](https://neda-pay.vercel.app/)
