@@ -139,7 +139,7 @@ Visit [http://localhost:3000](http://localhost:3000) in your browser.
   - Example: Add `NEXT_PUBLIC_FACTORY_ADDRESS=0x46358DA741d3456dBAEb02995979B2722C3b8722` to your `.env.local` file.
   - The factory contract supports smart wallet creation and management for NEDA Pay users.
 - Creation is handled in `WalletSelector.tsx`.
-- UI shows smart wallet status and allows switching between EOA and smart wallet.
+
 
 ---
 
