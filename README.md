@@ -21,11 +21,19 @@ A robust, seamless payment platform that enables businesses, merchants and creat
 
 ## Features
 
+- **Generate Unique Payment Links:**
+  - Unique links for merchants & creators to send to their customers with specified amounts & QR codes
+  - Stored onchain & receive instant notifications to payer & merchant once paid
+ 
 - **Aerodrome DEX Integration:**
   - Robust, direct integration with Aerodrome for on-chain swaps.
   - Supports both stable and volatile pools, with automatic pool selection.
   - Accurate quote fetching and swap execution, using the official Aerodrome router and factory addresses.
   - All token amounts and outputs are formatted with the correct decimals for each stablecoin.
+ 
+- **Track growth, performance & Analytics:**
+  - Track growth with payments from all local stablecoins integrated, daily revenue, payment methods used and customer behavior
+  - Analyze business analytics and export them for further analysis e.g AI analysis 
 
 - **Multi-Wallet Support:**
   - Connect with MetaMask or Coinbase Wallet (via wagmi connectors).
@@ -196,6 +204,11 @@ Visit [http://localhost:3000](http://localhost:3000) in your browser.
 
 **Q: How do I report a bug or request a feature?**
 - Open an issue or pull request on GitHub.
+
+## What's next?
+- Abstracting the sign up process with gmail and smart wallets, integrating Privy
+- Building on/offramp rails for East Africa. Merchants should get paid in crypto and get credited fiat to their account instantly
+- Integrate TSHC, Tanzania local stablecoin. (Currently on testnet) (https://sepolia.basescan.org/address/0x0859D42FD008D617c087DD386667da51570B1aAB)
 
 ---
 
